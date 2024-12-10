@@ -1,10 +1,10 @@
-import { BaseLog } from "@web-guard/types";
+import { IBaseLog } from "@web-guard/types";
 
-function serializeLog(log: BaseLog): string {
+function serializeLog(log: IBaseLog): string {
   const expectedKeys = Object.keys(log).sort();
   return JSON.stringify(log, expectedKeys);
 }
 
-export function getUUIDFromLog(log: BaseLog): string {
+export function getUUIDFromLog(log: IBaseLog): string {
   return serializeLog(log);
 }
