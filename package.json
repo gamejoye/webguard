@@ -1,0 +1,29 @@
+{
+  "name": "web-guard",
+  "version": "1.0.0",
+  "description": "",
+  "type": "module",
+  "scripts": {
+    "preinstall": "npx only-allow pnpm",
+    "build": "rollup -c",
+    "dev:core": "pnpm --filter core run dev"
+  },
+  "keywords": [],
+  "author": "gamejoye <gamejoye@gmail.com>",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/core": "^7.25.8",
+    "@babel/preset-env": "^7.25.8",
+    "@babel/preset-typescript": "^7.25.7",
+    "@rollup/plugin-babel": "^6.0.4",
+    "@rollup/plugin-commonjs": "^28.0.1",
+    "@rollup/plugin-node-resolve": "^15.3.0",
+    "@rollup/plugin-terser": "^0.4.4",
+    "@rollup/plugin-typescript": "^12.1.1",
+    "@types/node": "^22.7.6",
+    "rollup": "^4.24.0",
+    "rollup-plugin-delete": "^2.1.0",
+    "typescript": "^5.6.3",
+    "vite": "^5.4.10"
+  }
+}
