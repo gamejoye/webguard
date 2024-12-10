@@ -27,13 +27,10 @@ export class MonitorReporter {
   }
 
   async immediateSend(log: IErrorLog): Promise<void> {
-    console.log('log:', log)
+    console.log('log:', log);
     // TODO 上报
   }
-
 }
 
 const reporter = new MonitorReporter();
-export {
-  reporter,
-}
+export { reporter };

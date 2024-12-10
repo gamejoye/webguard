@@ -1,4 +1,4 @@
-import { IBaseLog } from "@web-guard/types";
+import { IBaseLog } from '@web-guard/types';
 
 function serializeLog(log: IBaseLog): string {
   const expectedKeys = Object.keys(log).sort();

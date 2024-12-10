@@ -24,4 +24,4 @@ export function breadcrumbTypeToBreadcrumbLevel(type: BreadcrumbTypes): Breadcru
     [BreadcrumbTypes.CUSTOM]: BreadcrumbLevel.INFO,
   };
   return map[type];
-} 
+}

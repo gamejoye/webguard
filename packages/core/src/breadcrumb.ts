@@ -1,5 +1,5 @@
-import { BreadcrumbConfig, IBreadcrumbData } from "@web-guard/types";
-import { LinkedList } from "@web-guard/utils";
+import { BreadcrumbConfig, IBreadcrumbData } from '@web-guard/types';
+import { LinkedList } from '@web-guard/utils';
 
 export class Breadcrumb {
   maxBreadcrumbs!: number;
@@ -40,6 +40,4 @@ export class Breadcrumb {
 }
 
 const breadcrumb = new Breadcrumb();
-export {
-  breadcrumb,
-}
+export { breadcrumb };

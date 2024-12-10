@@ -1,4 +1,4 @@
-import { BreadcrumbLevel, BreadcrumbTypes } from "@web-guard/common";
+import { BreadcrumbLevel, BreadcrumbTypes } from '@web-guard/common';
 
 export interface IBaseLog {
   timestamp: number; // 日志产生的时间戳
@@ -31,11 +31,11 @@ export type BreadcrumbBeforePush = (breadcrumb: IBreadcrumbData) => IBreadcrumbD
 export type BreadcrumbConfig = {
   maxBreadcrumbs?: number;
   beforePushBreadcrumb?: BreadcrumbBeforePush;
-}
+};
 
 export type MonitorReporterConfig = {
   repetitionErrorRemove?: boolean; // 是否进行错误上报去重
-}
+};
 
 export type WebGuardInitConfig = {
   targetUrl: string; // 错误上报服务器
@@ -43,9 +43,9 @@ export type WebGuardInitConfig = {
   needCatchUnhandledrejection?: boolean; // 是否监听Promise reject
   monitorReporterConfig?: MonitorReporterConfig; // 监控上报配置
   breadcrumbConfig?: BreadcrumbConfig; // 面包屑配置
-}
+};
 
 export type EventMaps = {
-  onError: (e: ErrorEvent) => void,
-  onUnHandledUnrejection: (e: PromiseRejectionEvent) => void,
-}
+  onError: (e: ErrorEvent) => void;
+  onUnHandledUnrejection: (e: PromiseRejectionEvent) => void;
+};

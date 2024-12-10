@@ -1,7 +1,7 @@
 export function fill<T, K extends keyof T>(
   obj: T,
   key: K,
-  factory: (original: T[K]) => T[K],
+  factory: (original: T[K]) => T[K]
 ): T[K] {
   const original = obj[key];
   const wrapper = factory(original);
@@ -12,7 +12,8 @@ export function fill<T, K extends keyof T>(
     const proto = Object.getPrototypeOf(original);
     Object.setPrototypeOf(wrapper, proto);
     Object.setPrototypeOf(original, proto);
-  } catch (_) { }
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  } catch (_) {}
 
   return wrapper;
 }

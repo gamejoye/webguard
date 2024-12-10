@@ -17,20 +17,20 @@ export function createRollupConfig(packageName) {
       {
         file: 'dist/index.js',
         format: 'esm',
-        sourcemap: true
+        sourcemap: true,
       },
       {
         file: 'dist/index.cjs',
         format: 'cjs',
-        sourcemap: true
+        sourcemap: true,
       },
       {
         file: 'dist/index.min.js',
         format: 'iife',
         name: packageName,
         plugins: [terser()],
-        sourcemap: true
-      }
+        sourcemap: true,
+      },
     ],
     plugins: [
       del({ targets: 'dist/*' }),
@@ -38,18 +38,15 @@ export function createRollupConfig(packageName) {
         tsconfig: path.resolve(__dirname, 'tsconfig.json'),
         sourceMap: true,
         declaration: true,
-        declarationDir: 'dist'
+        declarationDir: 'dist',
       }),
       resolve(),
       commonjs(),
       babel({
         babelHelpers: 'bundled',
         extensions: ['.ts', '.tsx'],
-        presets: [
-          '@babel/preset-env',
-          '@babel/preset-typescript'
-        ]
-      })
+        presets: ['@babel/preset-env', '@babel/preset-typescript'],
+      }),
     ],
   });
 }

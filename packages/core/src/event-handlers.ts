@@ -9,5 +9,5 @@ export const EventHandlers = {
   handleUnHandledRejection(e: PromiseRejectionEvent): void {
     // errorReporter.send(log);
     console.log('handleUnHandledRejection:', e);
-  }
-}
+  },
+};

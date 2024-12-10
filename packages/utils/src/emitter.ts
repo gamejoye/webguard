@@ -1,6 +1,6 @@
 type EventMap = {
   [k: string]: (...arg: any[]) => void;
-}
+};
 
 type GetFunctionParams<T extends (...args: any) => void> = Parameters<T>;
 
@@ -33,7 +33,7 @@ export class EventEmitter<T extends EventMap> {
       this.eventStore.delete(type);
       return;
     }
-    const index = this.eventStore.get(type)!.findIndex((hr) => hr === handler);
+    const index = this.eventStore.get(type)!.findIndex(hr => hr === handler);
     if (index !== -1) this.eventStore.get(type)!.splice(index, 1);
   }
 }

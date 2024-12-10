@@ -1,8 +1,8 @@
-import { initFlags } from "@web-guard/utils";
-import { initRelace } from "./replace";
-import { reporter } from "./repoter";
-import { breadcrumb } from "./breadcrumb";
-import { WebGuardInitConfig } from "@web-guard/types";
+import { initFlags } from '@web-guard/utils';
+import { initRelace } from './replace';
+import { reporter } from './repoter';
+import { breadcrumb } from './breadcrumb';
+import { WebGuardInitConfig } from '@web-guard/types';
 
 export class WebGuard {
   config!: Required<WebGuardInitConfig>;

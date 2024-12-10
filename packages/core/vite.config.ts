@@ -1,5 +1,5 @@
-import { defineConfig } from 'vite'
-import path from 'path'
+import { defineConfig } from 'vite';
+import path from 'path';
 
 export default defineConfig({
   root: '__tests__',
@@ -15,4 +15,4 @@ export default defineConfig({
     port: 3000,
     open: true,
   },
-})
+});

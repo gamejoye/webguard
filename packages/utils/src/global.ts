@@ -1,4 +1,4 @@
-import { EventMaps } from "@web-guard/types";
+import { EventMaps } from '@web-guard/types';
 
 function getGlobal(): Window {
   return window as unknown as Window;
@@ -20,5 +20,5 @@ export function setFlag(event: keyof EventMaps, tag: boolean) {
 }
 export function initFlags(flagEntries: [keyof EventMaps, boolean][]) {
   flags.clear();
-  for (const entry of flagEntries) setFlag(entry[0], entry[1])
+  for (const entry of flagEntries) setFlag(entry[0], entry[1]);
 }
