@@ -16,6 +16,7 @@
   "author": "gamejoye <gamejoye@gmail.com>",
   "license": "ISC",
   "dependencies": {
+    "@web-guard/common": "workspace:^",
     "@web-guard/types": "workspace:^"
   }
 }
