@@ -1,0 +1,15 @@
+{
+  "name": "@web-guard/types",
+  "version": "1.0.0",
+  "description": "监控系统类型包",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@web-guard/common": "workspace:^"
+  }
+}
