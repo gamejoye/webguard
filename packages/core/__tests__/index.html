@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WebGuard测试</title>
+</head>
+<body>
+  <button id="errorBtn" onclick="triggerError()">throw Error</button>
+  <button id="promiseErrorBtn" onclick="triggerPromiseError()">throw PromiseRejection</button>
+  <script>
+    function triggerError() {
+      window.a.b = 123
+    }
+    function triggerPromiseError() {
+      Promise.resolve().then(() => {
+        JSON.parse('')
+      })
+    }
+  </script>
+  <script type="module">
+    import { WebGuard } from '@web-guard/core';
+    const guard = new WebGuard({
+      targetUrl: 'testurl'
+    });
+    guard.init();
+  </script>
+</body>
+</html>
