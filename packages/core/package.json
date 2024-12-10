@@ -1,0 +1,23 @@
+{
+  "name": "@web-guard/core",
+  "version": "1.0.0",
+  "description": "监控系统核心包",
+  "main": "dist/index.cjs",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc"
+  },
+  "keywords": [],
+  "author": "gamejoye <gamejoye@gmail.com>",
+  "license": "ISC",
+  "dependencies": {
+    "@web-guard/common": "workspace:^",
+    "@web-guard/types": "workspace:^",
+    "@web-guard/utils": "workspace:^"
+  }
+}
