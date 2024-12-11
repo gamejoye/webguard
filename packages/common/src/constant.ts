@@ -1,6 +1,9 @@
 export enum EventTypes {
   ERROR = 'error',
   UNHANDLEDREJECTION = 'unhandledrejection',
+  CLICK = 'click',
+  KEYDOWN = 'keydown',
+  KEYUP = 'keyup',
 }
 
 export enum BreadcrumbTypes {

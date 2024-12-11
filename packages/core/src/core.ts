@@ -17,6 +17,9 @@ export class WebGuard {
     initFlags([
       ['onError', this.config.needCatchError],
       ['onUnHandledUnrejection', this.config.needCatchUnhandledrejection],
+      ['onClick', true],
+      ['onKeyDown', true],
+      ['onKeyUp', true],
     ]);
     initRelace();
     reporter.bindConfig(this.config.monitorReporterConfig);

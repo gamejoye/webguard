@@ -48,4 +48,7 @@ export type WebGuardInitConfig = {
 export type EventMaps = {
   onError: (e: ErrorEvent) => void;
   onUnHandledUnrejection: (e: PromiseRejectionEvent) => void;
+  onClick: (e: MouseEvent) => void;
+  onKeyDown: (e: KeyboardEvent) => void;
+  onKeyUp: (e: KeyboardEvent) => void;
 };
