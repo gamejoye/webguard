@@ -16,6 +16,7 @@ export class WebGuard {
     };
     initFlags([
       ['onError', this.config.needCatchError],
+      ['onResourceError', true],
       ['onUnHandledUnrejection', this.config.needCatchUnhandledrejection],
       ['onClick', true],
       ['onKeyDown', true],
