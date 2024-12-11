@@ -69,7 +69,28 @@ pnpm lint
 
 # 代码格式化
 pnpm lint-fix
+
+# 运行测试
+pnpm test
+
+# 监听模式运行测试
+pnpm test:watch
+
+# 生成测试覆盖率报告
+pnpm test:coverage
 ```
+
+## 测试
+
+项目使用 Jest 进行单元测试：
+
+- 测试文件位于各包的 `__tests__` 目录
+- 测试文件命名格式为 `*.test.ts`
+- 测试覆盖率要求：
+  - 分支覆盖率：100%
+  - 函数覆盖率：100%
+  - 行覆盖率：100%
+  - 语句覆盖率：100%
 
 ## Git 提交规范
 
@@ -104,6 +125,7 @@ fix(utils): fix type conversion
 - Rollup
 - ESLint + Prettier
 - Husky + Commitlint
+- Jest
 - pnpm workspace
 
 ## License
