@@ -9,6 +9,7 @@ export enum EventTypes {
 export enum BreadcrumbTypes {
   HTTP = 'http',
   CLICK = 'click',
+  KEYBOARD = 'keyboard',
   ROUTE = 'route',
   CONSOLE = 'console',
   CODE_ERROR = 'code_error',
