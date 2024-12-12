@@ -1,29 +1,52 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>WebGuard测试</title>
+  <style>
+    .test-section {
+      margin: 20px;
+      padding: 20px;
+      border: 1px solid #ccc;
+    }
+
+    .test-title {
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+  </style>
 </head>
+
 <body>
-  <button id="errorBtn" onclick="triggerError()">throw Error</button>
-  <button id="promiseErrorBtn" onclick="triggerPromiseError()">throw PromiseRejection</button>
-  <script>
-    function triggerError() {
-      window.a.b = 123
-    }
-    function triggerPromiseError() {
-      Promise.resolve().then(() => {
-        JSON.parse('')
-      })
-    }
-  </script>
-  <script type="module">
-    import { WebGuard } from '@web-guard/core';
-    const guard = new WebGuard({
-      targetUrl: 'testurl'
-    });
-    guard.init();
-  </script>
+  <div class="test-section">
+    <div class="test-title">JS Error 测试</div>
+    <button id="errorBtn">throw Error</button>
+    <button id="referenceBtn">Reference Error</button>
+  </div>
+
+  <div class="test-section">
+    <div class="test-title">Source Error 测试</div>
+    <button id="sourceFetchJSErrorBtn">Source Fetch JS Error</button>
+    <button id="sourceFetchIMGErrorBtn">Source Fetch IMG Error</button>
+    <button id="sourceFetchCSSErrorBtn">Source Fetch CSS Error</button>
+  </div>
+
+  <div class="test-section">
+    <div class="test-title">Promise Error 测试</div>
+    <button id="promiseErrorBtn">Promise Rejection</button>
+    <button id="asyncErrorBtn">Async Error</button>
+    <button id="promiseErrorBasetypeBtn">Promise Rejection Basetype</button>
+  </div>
+
+  <div class="test-section">
+    <div class="test-title">Breadcrumb 测试</div>
+    <button id="normalClickBtn">Normal Click</button>
+    <input id="testInput" placeholder="Type something...">
+  </div>
+
+  <script type="module" src="./main.ts"></script>
 </body>
+
 </html>
