@@ -92,6 +92,29 @@ export const EventHandlers = {
     });
     breadcrumb.push(breadcrumbData);
   },
+  fetchReplacer(originalFetch: typeof fetch) {
+    return function (...args: Parameters<typeof fetch>) {
+      return originalFetch(...args)
+        .then(res => {
+          if (!res.ok) {
+            // 错误处理
+          }
+          return res;
+        })
+        .catch(error => {
+          // 错误处理
+          return error;
+        });
+    };
+  },
+  xhrReplacer(originalSend: typeof XMLHttpRequest.prototype.send) {
+    return function (this: XMLHttpRequest, ...args: Parameters<typeof originalSend>) {
+      this.addEventListener('error', function handleError(e) {
+        console.log('error', e);
+      });
+      return originalSend.apply(this, args);
+    };
+  },
 };
 
 const getLines = (stack: string) => {

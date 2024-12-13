@@ -1,6 +1,6 @@
 import { EventTypes } from '@web-guard/common';
 import { EventMaps } from '@web-guard/types';
-import { getFlag, isBrowerEnv, webGuardGlobal } from '@web-guard/utils';
+import { getFlag, isBrowerEnv } from '@web-guard/utils';
 import { EventHandlers } from './event-handlers';
 
 export function initRelace() {
@@ -10,6 +10,8 @@ export function initRelace() {
   addReplace('onClick', e => EventHandlers.handleClick(e));
   addReplace('onKeyDown', e => EventHandlers.handleKeyDown(e));
   addReplace('onKeyUp', e => EventHandlers.handleKeyUp(e));
+  addReplace('onFetch', EventHandlers.fetchReplacer);
+  addReplace('onXHR', EventHandlers.xhrReplacer);
 }
 
 function addReplace<T extends keyof EventMaps>(type: T, handler: EventMaps[T]) {
@@ -33,11 +35,17 @@ function addReplace<T extends keyof EventMaps>(type: T, handler: EventMaps[T]) {
     case 'onKeyUp':
       listenKeyUp(handler as EventMaps['onKeyUp']);
       break;
+    case 'onFetch':
+      replaceFetch(handler as EventMaps['onFetch']);
+      break;
+    case 'onXHR':
+      replaceXHR(handler as EventMaps['onXHR']);
+      break;
   }
 }
 
 function listenError(handler: EventMaps['onError']) {
-  webGuardGlobal.addEventListener(EventTypes.ERROR, handler);
+  window.addEventListener(EventTypes.ERROR, handler);
 }
 
 function listenResourceError(handler: EventMaps['onResourceError']) {
@@ -45,11 +53,11 @@ function listenResourceError(handler: EventMaps['onResourceError']) {
    * 监听资源加载错误
    * 资源加载错误不会冒泡，需要使用捕获阶段监听
    */
-  webGuardGlobal.addEventListener(EventTypes.ERROR, handler, true);
+  window.addEventListener(EventTypes.ERROR, handler, true);
 }
 
 function listenPromiseRejection(handler: EventMaps['onUnHandledUnrejection']) {
-  webGuardGlobal.addEventListener(EventTypes.UNHANDLEDREJECTION, handler);
+  window.addEventListener(EventTypes.UNHANDLEDREJECTION, handler);
 }
 
 function listenClick(handler: EventMaps['onClick']) {
@@ -68,4 +76,23 @@ function listenKeyUp(handler: EventMaps['onKeyUp']) {
   if (!isBrowerEnv) return;
   document.addEventListener(EventTypes.KEYUP, handler);
   // TODO: fill 重写 addEventListener
+}
+
+function replaceFetch(replacer: EventMaps['onFetch']) {
+  const originalFetch = window.fetch;
+  if (!originalFetch) {
+    console.warn('fetch is not supported');
+    return;
+  }
+  window.fetch = replacer(originalFetch);
+}
+
+function replaceXHR(replacer: EventMaps['onXHR']) {
+  const originalXHR = window.XMLHttpRequest;
+  if (!originalXHR) {
+    console.warn('XMLHttpRequest is not supported');
+    return;
+  }
+  const originalSend = originalXHR.prototype.send;
+  originalXHR.prototype.send = replacer(originalSend);
 }

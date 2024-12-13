@@ -52,4 +52,8 @@ export type EventMaps = {
   onClick: (e: MouseEvent) => void;
   onKeyDown: (e: KeyboardEvent) => void;
   onKeyUp: (e: KeyboardEvent) => void;
+  onFetch: (originalFetch: typeof fetch) => typeof fetch;
+  onXHR: (
+    originalSend: typeof XMLHttpRequest.prototype.send
+  ) => typeof XMLHttpRequest.prototype.send;
 };
