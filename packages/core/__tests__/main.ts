@@ -15,7 +15,7 @@ guard.init({
   breadcrumbConfig: {
     maxBreadcrumbs: 10,
     beforePushBreadcrumb: breadcrumb => {
-      console.log('Breadcrumb:', breadcrumb);
+      console.log('beforePushBreadcrumb:', breadcrumb);
       return breadcrumb;
     },
   },
