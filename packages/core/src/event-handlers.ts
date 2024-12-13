@@ -1,6 +1,8 @@
-import { getPageUrl, getUserAgent } from '@web-guard/utils';
-import { ErrorLog } from './log';
+import { getPageUrl, getUserAgent, stringifyTarget } from '@web-guard/utils';
+import { ErrorLog, Breadcrumb } from './models';
 import { reporter } from './repoter';
+import { breadcrumb } from './breadcrumb';
+import { BreadcrumbLevel, BreadcrumbTypes } from '@web-guard/common';
 
 export const EventHandlers = {
   handleError(e: ErrorEvent): void {
@@ -63,13 +65,32 @@ export const EventHandlers = {
     reporter.send(log);
   },
   handleClick(e: MouseEvent): void {
-    console.log('handleClick:', e);
+    const message = `user click ${stringifyTarget(e)}`;
+
+    const breadcrumbData = new Breadcrumb({
+      type: BreadcrumbTypes.CLICK,
+      level: BreadcrumbLevel.INFO,
+      message,
+    });
+    breadcrumb.push(breadcrumbData);
   },
   handleKeyDown(e: KeyboardEvent): void {
-    console.log('handleKeyDown:', e);
+    const message = `user keydown ${e.key} at ${stringifyTarget(e)}`;
+    const breadcrumbData = new Breadcrumb({
+      type: BreadcrumbTypes.KEYBOARD,
+      level: BreadcrumbLevel.INFO,
+      message,
+    });
+    breadcrumb.push(breadcrumbData);
   },
   handleKeyUp(e: KeyboardEvent): void {
-    console.log('handleKeyUp:', e);
+    const message = `user keyup ${e.key} at ${stringifyTarget(e)}`;
+    const breadcrumbData = new Breadcrumb({
+      type: BreadcrumbTypes.KEYBOARD,
+      level: BreadcrumbLevel.INFO,
+      message,
+    });
+    breadcrumb.push(breadcrumbData);
   },
 };
 
