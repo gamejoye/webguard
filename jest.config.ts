@@ -19,6 +19,9 @@ const config: Config = {
       statements: 100,
     },
   },
+  globals: {
+    __DEV__: true,
+  },
 };
 
 export default config;

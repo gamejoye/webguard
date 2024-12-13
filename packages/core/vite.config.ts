@@ -11,6 +11,9 @@ export default defineConfig({
       '@web-guard/types': path.resolve(__dirname, '../types/src'),
     },
   },
+  define: {
+    __DEV__: true,
+  },
   server: {
     port: 3000,
     open: true,

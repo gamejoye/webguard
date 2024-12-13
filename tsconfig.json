@@ -2,11 +2,7 @@
   "compilerOptions": {
     "target": "esnext",
     "module": "esnext",
-    "lib": [
-      "esnext",
-      "dom",
-      "dom.iterable"
-    ],
+    "lib": ["esnext", "dom", "dom.iterable"],
     "moduleResolution": "node",
     "strict": true,
     "resolveJsonModule": true,
@@ -20,11 +16,9 @@
     "baseUrl": "./",
     "paths": {
       "*": ["src/*", "node_modules/*"],
-      "@web-guard/*":["packages/*/src"],
-    },
+      "@web-guard/*": ["packages/*/src"]
+    }
   },
-  "exclude": [
-    "**/dist",
-    "**/node_modules"
-  ]
+  "include": ["packages/**/*.ts", "global.d.ts"],
+  "exclude": ["**/dist", "**/node_modules"]
 }
