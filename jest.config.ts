@@ -21,6 +21,7 @@ const config: Config = {
   },
   globals: {
     __DEV__: true,
+    __MODE__: 'web',
   },
 };
 

@@ -13,6 +13,7 @@ export default defineConfig({
   },
   define: {
     __DEV__: true,
+    __MODE__: JSON.stringify('web'),
   },
   server: {
     port: 3000,

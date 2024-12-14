@@ -1,15 +1,5 @@
 import { EventMaps } from '@web-guard/types';
 
-function getGlobal(): Window {
-  return window as unknown as Window;
-}
-function getIsBrowerEnv(): boolean {
-  return window !== undefined;
-}
-
-export const isBrowerEnv = getIsBrowerEnv();
-export const webGuardGlobal = getGlobal();
-
 const flags = new Set();
 export function getFlag(event: keyof EventMaps) {
   return flags.has(event);

@@ -1,6 +1,6 @@
-import { EventTypes } from '@web-guard/common';
+import { EventTypes, WINDOW } from '@web-guard/common';
 import { EventMaps } from '@web-guard/types';
-import { getFlag, isBrowerEnv } from '@web-guard/utils';
+import { getFlag } from '@web-guard/utils';
 import { EventHandlers } from './event-handlers';
 
 export function initRelace() {
@@ -45,7 +45,7 @@ function addReplace<T extends keyof EventMaps>(type: T, handler: EventMaps[T]) {
 }
 
 function listenError(handler: EventMaps['onError']) {
-  window.addEventListener(EventTypes.ERROR, handler);
+  WINDOW.addEventListener(EventTypes.ERROR, handler);
 }
 
 function listenResourceError(handler: EventMaps['onResourceError']) {
@@ -53,42 +53,39 @@ function listenResourceError(handler: EventMaps['onResourceError']) {
    * 监听资源加载错误
    * 资源加载错误不会冒泡，需要使用捕获阶段监听
    */
-  window.addEventListener(EventTypes.ERROR, handler, true);
+  WINDOW.addEventListener(EventTypes.ERROR, handler, true);
 }
 
 function listenPromiseRejection(handler: EventMaps['onUnHandledUnrejection']) {
-  window.addEventListener(EventTypes.UNHANDLEDREJECTION, handler);
+  WINDOW.addEventListener(EventTypes.UNHANDLEDREJECTION, handler);
 }
 
 function listenClick(handler: EventMaps['onClick']) {
-  if (!isBrowerEnv) return;
-  document.addEventListener(EventTypes.CLICK, handler);
+  WINDOW.document.addEventListener(EventTypes.CLICK, handler);
   // TODO: fill 重写 addEventListener
 }
 
 function listenKeyDown(handler: EventMaps['onKeyDown']) {
-  if (!isBrowerEnv) return;
-  document.addEventListener(EventTypes.KEYDOWN, handler);
+  WINDOW.document.addEventListener(EventTypes.KEYDOWN, handler);
   // TODO: fill 重写 addEventListener
 }
 
 function listenKeyUp(handler: EventMaps['onKeyUp']) {
-  if (!isBrowerEnv) return;
-  document.addEventListener(EventTypes.KEYUP, handler);
+  WINDOW.document.addEventListener(EventTypes.KEYUP, handler);
   // TODO: fill 重写 addEventListener
 }
 
 function replaceFetch(replacer: EventMaps['onFetch']) {
-  const originalFetch = window.fetch;
+  const originalFetch = WINDOW.fetch;
   if (!originalFetch) {
     console.warn('fetch is not supported');
     return;
   }
-  window.fetch = replacer(originalFetch);
+  WINDOW.fetch = replacer(originalFetch);
 }
 
 function replaceXHR(replacer: EventMaps['onXHR']) {
-  const originalXHR = window.XMLHttpRequest;
+  const originalXHR = WINDOW.XMLHttpRequest;
   if (!originalXHR) {
     console.warn('XMLHttpRequest is not supported');
     return;

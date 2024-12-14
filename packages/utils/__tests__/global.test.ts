@@ -1,4 +1,4 @@
-import { getFlag, initFlags, isBrowerEnv, setFlag, webGuardGlobal } from '../src';
+import { getFlag, initFlags, setFlag } from '../src';
 
 describe('global', () => {
   describe('flags', () => {
@@ -18,13 +18,6 @@ describe('global', () => {
       expect(getFlag('onClick')).toBe(true);
       expect(getFlag('onError')).toBe(true);
       expect(getFlag('onKeyDown')).toBe(false);
-    });
-  });
-
-  describe('isBrowerEnv shou', () => {
-    it('should be true in browser', () => {
-      const global = webGuardGlobal;
-      expect(isBrowerEnv).toBe(global !== undefined);
     });
   });
 });

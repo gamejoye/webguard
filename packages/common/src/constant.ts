@@ -22,3 +22,6 @@ export enum BreadcrumbLevel {
   INFO = 'info',
   DEBUG = 'debug',
 }
+
+// TODO: 需要处理非浏览器环境 降级处理
+export const WINDOW = (__MODE__ === 'web' ? window : {}) as typeof window;
