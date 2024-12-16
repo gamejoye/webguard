@@ -90,6 +90,5 @@ function replaceXHR(replacer: EventMaps['onXHR']) {
     console.warn('XMLHttpRequest is not supported');
     return;
   }
-  const originalSend = originalXHR.prototype.send;
-  originalXHR.prototype.send = replacer(originalSend);
+  replacer(originalXHR);
 }

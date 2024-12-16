@@ -21,6 +21,8 @@ export class WebGuard {
       ['onClick', true],
       ['onKeyDown', true],
       ['onKeyUp', true],
+      ['onFetch', true],
+      ['onXHR', true],
     ]);
     initRelace();
     reporter.bindConfig(this.config.monitorReporterConfig);

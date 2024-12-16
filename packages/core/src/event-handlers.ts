@@ -4,13 +4,18 @@ import { reporter } from './repoter';
 import { breadcrumb } from './breadcrumb';
 import { BreadcrumbLevel, BreadcrumbTypes } from '@web-guard/common';
 
+type ExtraXMLHttpRequest = {
+  method: string;
+  requestURL: string;
+};
+
 export const EventHandlers = {
   handleError(e: ErrorEvent): void {
     const log = new ErrorLog({
       pageUrl: getPageUrl(),
       userAgent: getUserAgent(),
       errorMessage: e.message,
-      errorStack: typeof e.error?.stack === 'string' ? getLines(e.error.stack) : '',
+      errorStack: typeof e.error?.stack === 'string' ? getStackLines(e.error.stack) : '',
       filename: e.filename,
       line: e.lineno,
       column: e.colno,
@@ -50,7 +55,7 @@ export const EventHandlers = {
       message = reason + '';
     } else if (reason instanceof Error) {
       message = reason.message;
-      if (reason.stack) stack = getLines(reason.stack);
+      if (reason.stack) stack = getStackLines(reason.stack);
     }
 
     const log = new ErrorLog({
@@ -92,32 +97,112 @@ export const EventHandlers = {
     });
     breadcrumb.push(breadcrumbData);
   },
+  // 重写fetch
   fetchReplacer(originalFetch: typeof fetch) {
     return function (...args: Parameters<typeof fetch>) {
       return originalFetch(...args)
         .then(res => {
           if (!res.ok) {
             // 错误处理
+            const init = args[1];
+            const message = [
+              `Failed to fetch ${res.url}`,
+              `[status]: ${res.status}`,
+              `[statusText]: ${res.statusText}`,
+              `[method]: ${init?.method ?? 'GET'}`,
+              `[body]: ${init?.body ?? ''}`,
+              `[type]: ${res.type}`,
+            ].join('\n');
+            const log = new ErrorLog({
+              pageUrl: getPageUrl(),
+              userAgent: getUserAgent(),
+              errorMessage: message,
+            });
+            reporter.send(log);
           }
           return res;
         })
         .catch(error => {
           // 错误处理
-          return error;
+          let filename = '';
+          let line = -1;
+          let column = -1;
+          let message = 'Failed to fetch';
+          if (error instanceof Error) {
+            const info = getErrorStackInfo(error);
+            filename = info.filename;
+            line = info.line;
+            column = info.column;
+            message = error.message;
+          }
+          const log = new ErrorLog({
+            pageUrl: getPageUrl(),
+            userAgent: getUserAgent(),
+            errorMessage: message,
+            errorStack: getStackLines(error.stack),
+            filename,
+            line,
+            column,
+          });
+          reporter.send(log);
+          throw error;
         });
     };
   },
-  xhrReplacer(originalSend: typeof XMLHttpRequest.prototype.send) {
-    return function (this: XMLHttpRequest, ...args: Parameters<typeof originalSend>) {
-      this.addEventListener('error', function handleError(e) {
-        console.log('error', e);
-      });
+  // 重写XMLHttpRequest
+  xhrReplacer(originalXHR: typeof XMLHttpRequest) {
+    const originalSend = originalXHR.prototype.send;
+    const originalOpen = originalXHR.prototype.open;
+    const shouldSkipHandler = (e: ProgressEvent<XMLHttpRequestEventTarget>) => {
+      const status = (e.target as XMLHttpRequest & ExtraXMLHttpRequest).status;
+      const type = e.type;
+      // 正常情况 + 超时情况/错误情况 触发的loadend
+      return (type === 'loadend' && status === 0) || (status + '').startsWith('2');
+    };
+    originalXHR.prototype.open = function open(
+      this: XMLHttpRequest & ExtraXMLHttpRequest,
+      method: string,
+      url: string | URL,
+      async: boolean = true,
+      username?: string | null,
+      password?: string | null
+    ) {
+      this.method = method;
+      this.requestURL = typeof url === 'string' ? url : url.toString();
+      return originalOpen.apply(this, [method, url, async, username, password]);
+    };
+    originalXHR.prototype.send = function send(
+      this: XMLHttpRequest & ExtraXMLHttpRequest,
+      ...args: Parameters<typeof originalSend>
+    ) {
+      const handler = function (e: ProgressEvent<XMLHttpRequestEventTarget>) {
+        const { responseURL, requestURL, status, statusText, method, responseText } =
+          e.target as XMLHttpRequest & ExtraXMLHttpRequest;
+        if (shouldSkipHandler(e)) return;
+        const message = [
+          `Failed to XHR ${responseURL || requestURL}`,
+          `[status]: ${status}`,
+          `[statusText]: ${statusText}`,
+          `[method]: ${method}`,
+          `[body]: ${responseText}`,
+          `[xhr listener type]: ${e.type}`,
+        ].join('\n');
+        const log = new ErrorLog({
+          pageUrl: getPageUrl(),
+          userAgent: getUserAgent(),
+          errorMessage: message,
+        });
+        reporter.send(log);
+      };
+      this.addEventListener('error', handler);
+      this.addEventListener('loadend', handler);
+      this.addEventListener('timeout', handler);
       return originalSend.apply(this, args);
     };
   },
 };
 
-const getLines = (stack: string) => {
+const getStackLines = (stack: string) => {
   return stack
     .split('\n')
     .slice(1)
@@ -136,6 +221,21 @@ const getResourceUrl = (target: HTMLElement) => {
   return '';
 };
 
+const getErrorStackInfo = (error: Error) => {
+  let filename = '';
+  let line = -1;
+  let column = -1;
+  if (error.stack) {
+    const matchResult = error.stack.match(/at\s+(.*?)\s+\((.*?):(\d+):(\d+)\)/);
+    if (matchResult) {
+      filename = matchResult[2];
+      line = parseInt(matchResult[3]);
+      column = parseInt(matchResult[4]);
+    }
+  }
+  return { filename, line, column };
+};
+
 const getErrorLines = (e: Event): [string, number, number] => {
   let filename = '';
   let line = -1;
@@ -149,12 +249,10 @@ const getErrorLines = (e: Event): [string, number, number] => {
     const reason = e.reason;
     if (reason instanceof Error && reason.stack) {
       // at myAsyncFunction (http://localhost:3000/cases/promise.ts?t=1733988430098:8:18)
-      const matchResult = reason.stack.match(/at\s+(.*?)\s+\((.*?):(\d+):(\d+)\)/);
-      if (matchResult) {
-        filename = matchResult[2];
-        line = parseInt(matchResult[3]);
-        column = parseInt(matchResult[4]);
-      }
+      const info = getErrorStackInfo(reason);
+      filename = info.filename;
+      line = info.line;
+      column = info.column;
     }
   } else if (isResourceElement(e.target)) {
     // Resource Error
