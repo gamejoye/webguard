@@ -54,8 +54,8 @@ pnpm install
 # 开发模式
 pnpm dev:core
 
-# 构建
-pnpm build
+# 启动测试服务器 用于调试跨域脚本错误
+pnpm start:coreserver
 
 # 代码检查
 pnpm lint
