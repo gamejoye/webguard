@@ -10,7 +10,8 @@
   ],
   "scripts": {
     "dev": "vite",
-    "build": "tsc"
+    "build": "tsc",
+    "server": "node __tests__/server.js"
   },
   "keywords": [],
   "author": "gamejoye <gamejoye@gmail.com>",
@@ -19,5 +20,9 @@
     "@web-guard/common": "workspace:^",
     "@web-guard/types": "workspace:^",
     "@web-guard/utils": "workspace:^"
+  },
+  "devDependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.21.2"
   }
 }
