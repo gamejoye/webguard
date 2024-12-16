@@ -53,7 +53,5 @@ export type EventMaps = {
   onKeyDown: (e: KeyboardEvent) => void;
   onKeyUp: (e: KeyboardEvent) => void;
   onFetch: (originalFetch: typeof fetch) => typeof fetch;
-  onXHR: (
-    originalSend: typeof XMLHttpRequest.prototype.send
-  ) => typeof XMLHttpRequest.prototype.send;
+  onXHR: (originalSend: typeof XMLHttpRequest) => void;
 };
