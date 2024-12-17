@@ -1,10 +1,11 @@
+import { LogTypes } from '@web-guard/common';
 import { IBaseLog } from '@web-guard/types';
 import { getUUIDFromLog } from '@web-guard/utils';
 
 describe('uuid', () => {
   it('should be able to get uuid from log', () => {
     const log1: IBaseLog = {
-      type: 'error',
+      type: LogTypes.JS_ERROR,
       timestamp: 1234567890,
       pageUrl: 'https://example.com',
       userAgent:
@@ -14,7 +15,7 @@ describe('uuid', () => {
       traceId: '1234567890',
     };
     const log2: IBaseLog = {
-      type: 'performance',
+      type: LogTypes.PROMISE_REJECTION_ERROR,
       timestamp: 12345678910,
       pageUrl: 'https://example.com',
       userAgent:
