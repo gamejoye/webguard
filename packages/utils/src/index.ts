@@ -6,3 +6,4 @@ export * from './linked-list';
 export * from './transform';
 export * from './platform';
 export * from './target';
+export * from './url';
