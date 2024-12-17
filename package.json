@@ -10,9 +10,9 @@
     "prepare": "husky",
     "lint": "eslint \"**/*.{js,jsx,ts,tsx}\"",
     "lint-fix": "eslint \"**/*.{js,jsx,ts,tsx}\" --fix",
-    "test": "jest",
-    "test:watch": "jest --watch",
-    "test:coverage": "jest --coverage"
+    "test": "jest --runInBand",
+    "test:watch": "jest --runInBand --watch",
+    "test:coverage": "jest --runInBand --coverage"
   },
   "keywords": [],
   "author": "gamejoye <gamejoye@gmail.com>",
