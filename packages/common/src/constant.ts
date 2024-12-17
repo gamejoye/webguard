@@ -1,3 +1,11 @@
+export enum LogTypes {
+  JS_ERROR = 'js_error',
+  PROMISE_REJECTION_ERROR = 'promise_rejection_error',
+  RESOURCE_ERROR = 'resource_error',
+  REQUEST_ERROR = 'request_error',
+  CROSSORIGIN_SCRIPT_ERROR = 'crossorigin_script_error',
+}
+
 export enum EventTypes {
   ERROR = 'error',
   UNHANDLEDREJECTION = 'unhandledrejection',

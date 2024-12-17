@@ -1,8 +1,9 @@
+import { LogTypes } from '@web-guard/common';
 import { IBaseLog, IErrorLog } from '@web-guard/types';
 
 export class BaseLog implements IBaseLog {
   timestamp: number;
-  type: 'error' | 'performance';
+  type: LogTypes;
   pageUrl: string;
   userAgent: string;
   sessionId: string;
@@ -10,7 +11,7 @@ export class BaseLog implements IBaseLog {
 
   constructor(options: Partial<IBaseLog> = {}) {
     this.timestamp = options.timestamp ?? Date.now();
-    this.type = options.type ?? 'error';
+    this.type = options.type ?? LogTypes.JS_ERROR;
     this.pageUrl = options.pageUrl ?? '';
     this.userAgent = options.userAgent ?? '';
     this.sessionId = options.sessionId ?? '';
@@ -19,7 +20,6 @@ export class BaseLog implements IBaseLog {
 }
 
 export class ErrorLog extends BaseLog implements IErrorLog {
-  type: 'error';
   errorMessage: string;
   errorStack?: string;
   filename?: string;
@@ -28,7 +28,6 @@ export class ErrorLog extends BaseLog implements IErrorLog {
 
   constructor(options: Partial<IErrorLog> = {}) {
     super(options);
-    this.type = options.type ?? 'error';
     this.errorStack = options.errorStack ?? '';
     this.errorMessage = options.errorMessage ?? '';
     this.filename = options.filename ?? '';

@@ -1,8 +1,8 @@
-import { BreadcrumbLevel, BreadcrumbTypes } from '@web-guard/common';
+import { BreadcrumbLevel, BreadcrumbTypes, LogTypes } from '@web-guard/common';
 
 export interface IBaseLog {
   timestamp: number; // 日志产生的时间戳
-  type: 'error' | 'performance'; // 日志类型（如 error, performance, api, page）
+  type: LogTypes; // 日志类型
   pageUrl: string; // 页面 URL
   userAgent: string; // 用户的设备、浏览器信息
   sessionId: string; // 用户会话 ID
@@ -10,7 +10,6 @@ export interface IBaseLog {
 }
 
 export interface IErrorLog extends IBaseLog {
-  type: 'error'; // 错误类型日志
   errorMessage: string; // 错误信息
   errorStack?: string; // 错误堆栈
   filename?: string; // 发生错误的文件名

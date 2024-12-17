@@ -1,8 +1,8 @@
-import { getPageUrl, getUserAgent, stringifyTarget } from '@web-guard/utils';
+import { getPageUrl, getUserAgent, stringifyTarget, isSameOrigin } from '@web-guard/utils';
 import { ErrorLog, Breadcrumb } from './models';
 import { reporter } from './repoter';
 import { breadcrumb } from './breadcrumb';
-import { BreadcrumbLevel, BreadcrumbTypes } from '@web-guard/common';
+import { BreadcrumbLevel, BreadcrumbTypes, LogTypes } from '@web-guard/common';
 
 type ExtraXMLHttpRequest = {
   method: string;
@@ -11,7 +11,16 @@ type ExtraXMLHttpRequest = {
 
 export const EventHandlers = {
   handleError(e: ErrorEvent): void {
+    /**
+     * 跨域脚本错误情况
+     * 1. 能得知跨域脚本的具体错误 => 判断是否同源 => 非同源 => 是跨域脚本错误
+     * 2. 不能得知跨域脚本的具体错误 => 是跨域脚本错误
+     */
+    const isKnowError = e.colno !== 0 && e.lineno !== 0;
+    const isCrossOrigin = !isKnowError || !isSameOrigin(e.filename, getPageUrl());
+    const type = isCrossOrigin ? LogTypes.CROSSORIGIN_SCRIPT_ERROR : LogTypes.JS_ERROR;
     const log = new ErrorLog({
+      type,
       pageUrl: getPageUrl(),
       userAgent: getUserAgent(),
       errorMessage: e.message,
@@ -36,6 +45,7 @@ export const EventHandlers = {
       `    timestamp: ${new Date().toISOString()}`,
     ].join('\n');
     const log = new ErrorLog({
+      type: LogTypes.RESOURCE_ERROR,
       pageUrl: getPageUrl(),
       userAgent: getUserAgent(),
       errorMessage: `Failed to load ${target.tagName.toLowerCase()}: ${src}`,
@@ -59,6 +69,7 @@ export const EventHandlers = {
     }
 
     const log = new ErrorLog({
+      type: LogTypes.PROMISE_REJECTION_ERROR,
       pageUrl: getPageUrl(),
       userAgent: getUserAgent(),
       errorMessage: message,
@@ -114,6 +125,7 @@ export const EventHandlers = {
               `[type]: ${res.type}`,
             ].join('\n');
             const log = new ErrorLog({
+              type: LogTypes.REQUEST_ERROR,
               pageUrl: getPageUrl(),
               userAgent: getUserAgent(),
               errorMessage: message,
@@ -136,6 +148,7 @@ export const EventHandlers = {
             message = error.message;
           }
           const log = new ErrorLog({
+            type: LogTypes.REQUEST_ERROR,
             pageUrl: getPageUrl(),
             userAgent: getUserAgent(),
             errorMessage: message,
@@ -188,6 +201,7 @@ export const EventHandlers = {
           `[xhr listener type]: ${e.type}`,
         ].join('\n');
         const log = new ErrorLog({
+          type: LogTypes.REQUEST_ERROR,
           pageUrl: getPageUrl(),
           userAgent: getUserAgent(),
           errorMessage: message,
