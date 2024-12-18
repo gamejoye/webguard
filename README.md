@@ -48,6 +48,29 @@ packages/
 └── utils/         # 工具函数
 ```
 
+## 下载
+
+```
+npm install @webguard/core
+```
+
+## 使用
+
+```
+import { Guard } from '@webguard/core' // 引入核心包
+
+Guard.init({
+  targetUrl: 'testurl',
+  breadcrumbConfig: {
+    maxBreadcrumbs: 10,
+    beforePushBreadcrumb: breadcrumb => {
+      console.log('beforePushBreadcrumb:', breadcrumb);
+      return breadcrumb;
+    },
+  },
+});
+```
+
 ## 开发
 
 ```bash
