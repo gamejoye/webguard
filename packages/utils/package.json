@@ -3,18 +3,23 @@
   "version": "1.0.0",
   "description": "监控系统工具包",
   "private": true,
-  "main": "dist/index.cjs",
-  "module": "dist/index.js",
   "types": "dist/index.d.ts",
   "files": [
     "dist"
   ],
+  "exports": {
+    ".": {
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.cjs",
+      "types": "./dist/index.d.ts"
+    }
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "tsc && node build-utils.js"
   },
   "keywords": [],
   "author": "gamejoye <gamejoye@gmail.com>",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "@web-guard/common": "workspace:^",
     "@web-guard/types": "workspace:^"

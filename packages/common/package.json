@@ -2,14 +2,17 @@
   "name": "@web-guard/common",
   "version": "1.0.0",
   "description": "监控系统基础包",
-  "main": "dist/index.cjs",
+  "main": "src/index.ts",
   "module": "dist/index.js",
   "types": "dist/index.d.ts",
-  "files": ["dist"],
+  "private": true,
+  "files": [
+    "dist"
+  ],
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "tsc"
   },
   "keywords": [],
   "author": "gamejoye <gamejoye@gmail.com>",
-  "license": "ISC"
+  "license": "MIT"
 }

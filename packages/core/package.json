@@ -6,16 +6,20 @@
   "module": "dist/index.js",
   "types": "dist/index.d.ts",
   "files": [
-    "dist"
+    "dist",
+    "LICENSE"
   ],
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "dev": "vite",
-    "build": "tsc",
+    "build": "rm -rf dist && tsc -p tsconfig.build.json && vite build",
     "server": "node __tests__/server.js"
   },
   "keywords": [],
   "author": "gamejoye <gamejoye@gmail.com>",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "@web-guard/common": "workspace:^",
     "@web-guard/types": "workspace:^",

@@ -1,5 +1,5 @@
 import { defineConfig } from 'vite';
-import path from 'path';
+import path, { resolve } from 'path';
 
 export default defineConfig({
   root: '__tests__',
@@ -18,5 +18,21 @@ export default defineConfig({
   server: {
     port: 3000,
     open: true,
+  },
+  build: {
+    emptyOutDir: false,
+    outDir: path.resolve(__dirname, './dist'),
+    lib: {
+      entry: resolve(__dirname, 'src/index.ts'),
+      name: '@web-guard/core',
+      formats: ['es', 'cjs'],
+      fileName: format => `index.${format === 'es' ? 'mjs' : 'cjs'}`,
+    },
+    rollupOptions: {
+      output: {
+        sourcemap: true, // 生成 sourcemap
+      },
+    },
+    minify: true,
   },
 });
