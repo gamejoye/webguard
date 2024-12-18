@@ -1,7 +1,6 @@
 {
   "name": "webguard",
-  "version": "1.0.0",
-  "description": "",
+  "description": "一个轻量级的前端监控系统，帮助你实时监控和诊断 Web 应用的问题。",
   "scripts": {
     "preinstall": "npx only-allow pnpm",
     "build": "rollup -c",
@@ -14,7 +13,14 @@
     "test:watch": "jest --runInBand --watch",
     "test:coverage": "jest --runInBand --coverage"
   },
-  "keywords": [],
+  "keywords": [
+    "web guard",
+    "web monitor",
+    "web error",
+    "web performance",
+    "web error monitor",
+    "web performance monitor"
+  ],
   "author": "gamejoye <gamejoye@gmail.com>",
   "license": "MIT",
   "devDependencies": {
