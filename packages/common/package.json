@@ -1,6 +1,6 @@
 {
   "name": "@webguard/common",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "监控系统基础包",
   "main": "src/index.ts",
   "module": "dist/index.js",
