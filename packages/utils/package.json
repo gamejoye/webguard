@@ -2,11 +2,14 @@
   "name": "@webguard/utils",
   "version": "1.0.0",
   "description": "监控系统工具包",
-  "private": true,
   "types": "dist/index.d.ts",
   "files": [
     "dist"
   ],
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/",
+    "access": "public"
+  },
   "exports": {
     ".": {
       "import": "./dist/index.mjs",
@@ -15,7 +18,7 @@
     }
   },
   "scripts": {
-    "build": "tsc && node build-utils.js"
+    "build": "rm -rf dist && tsc -p tsconfig.build.json && node build-utils.js"
   },
   "keywords": [],
   "author": "gamejoye <gamejoye@gmail.com>",

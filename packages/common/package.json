@@ -5,10 +5,13 @@
   "main": "src/index.ts",
   "module": "dist/index.js",
   "types": "dist/index.d.ts",
-  "private": true,
   "files": [
     "dist"
   ],
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/",
+    "access": "public"
+  },
   "scripts": {
     "build": "tsc"
   },
