@@ -1,8 +1,8 @@
-import { getPageUrl, getUserAgent, stringifyTarget, isSameOrigin } from '@web-guard/utils';
+import { getPageUrl, getUserAgent, stringifyTarget, isSameOrigin } from '@webguard/utils';
 import { ErrorLog, Breadcrumb } from './models';
 import { reporter } from './repoter';
 import { breadcrumb } from './breadcrumb';
-import { BreadcrumbLevel, BreadcrumbTypes, LogTypes } from '@web-guard/common';
+import { BreadcrumbLevel, BreadcrumbTypes, LogTypes } from '@webguard/common';
 
 type ExtraXMLHttpRequest = {
   method: string;

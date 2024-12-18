@@ -1,4 +1,4 @@
-import { EventTypes, BreadcrumbTypes, BreadcrumbLevel } from '@web-guard/common';
+import { EventTypes, BreadcrumbTypes, BreadcrumbLevel } from '@webguard/common';
 import { eventTypeToBreadcrumbType, breadcrumbTypeToBreadcrumbLevel } from '../src';
 
 describe('transform', () => {

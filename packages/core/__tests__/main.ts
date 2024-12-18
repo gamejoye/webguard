@@ -1,4 +1,4 @@
-import { Guard as guard } from '@web-guard/core';
+import { Guard as guard } from '@webguard/core';
 import { setupErrorTests } from './cases/error';
 import { setupPromiseTests } from './cases/promise';
 import { setupBreadcrumbTests } from './cases/breadcrumb';

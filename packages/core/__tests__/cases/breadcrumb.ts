@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { WebGuard } from '@web-guard/core';
+import { WebGuard } from '@webguard/core';
 import { breadcrumb } from '../../src/breadcrumb';
 export function setupBreadcrumbTests(guard: WebGuard) {
   document.getElementById('normalClickBtn')?.addEventListener('click', () => {

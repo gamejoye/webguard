@@ -1,5 +1,5 @@
-import { LogTypes } from '@web-guard/common';
-import { IBaseLog, IErrorLog } from '@web-guard/types';
+import { LogTypes } from '@webguard/common';
+import { IBaseLog, IErrorLog } from '@webguard/types';
 
 export class BaseLog implements IBaseLog {
   timestamp: number;

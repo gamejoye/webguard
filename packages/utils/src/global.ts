@@ -1,4 +1,4 @@
-import { EventMaps } from '@web-guard/types';
+import { EventMaps } from '@webguard/types';
 
 const flags = new Set();
 export function getFlag(event: keyof EventMaps) {

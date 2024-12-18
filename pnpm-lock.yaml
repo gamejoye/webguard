@@ -99,13 +99,13 @@ importers:
 
   packages/core:
     dependencies:
-      '@web-guard/common':
+      '@webguard/common':
         specifier: workspace:^
         version: link:../common
-      '@web-guard/types':
+      '@webguard/types':
         specifier: workspace:^
         version: link:../types
-      '@web-guard/utils':
+      '@webguard/utils':
         specifier: workspace:^
         version: link:../utils
     devDependencies:
@@ -118,16 +118,16 @@ importers:
 
   packages/types:
     dependencies:
-      '@web-guard/common':
+      '@webguard/common':
         specifier: workspace:^
         version: link:../common
 
   packages/utils:
     dependencies:
-      '@web-guard/common':
+      '@webguard/common':
         specifier: workspace:^
         version: link:../common
-      '@web-guard/types':
+      '@webguard/types':
         specifier: workspace:^
         version: link:../types
 

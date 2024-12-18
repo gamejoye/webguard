@@ -1,4 +1,4 @@
-import { stringifyTarget } from '@web-guard/utils';
+import { stringifyTarget } from '@webguard/utils';
 
 describe('stringifyTarget', () => {
   it('should be able to stringify target', () => {

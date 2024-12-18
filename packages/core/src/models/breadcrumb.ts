@@ -1,5 +1,5 @@
-import { BreadcrumbTypes, BreadcrumbLevel } from '@web-guard/common';
-import { IBreadcrumbData } from '@web-guard/types';
+import { BreadcrumbTypes, BreadcrumbLevel } from '@webguard/common';
+import { IBreadcrumbData } from '@webguard/types';
 
 export class Breadcrumb implements IBreadcrumbData {
   type: BreadcrumbTypes;

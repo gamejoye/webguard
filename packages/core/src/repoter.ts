@@ -1,5 +1,5 @@
-import { IErrorLog, MonitorReporterConfig } from '@web-guard/types';
-import { getUUIDFromLog } from '@web-guard/utils';
+import { IErrorLog, MonitorReporterConfig } from '@webguard/types';
+import { getUUIDFromLog } from '@webguard/utils';
 
 export class MonitorReporter {
   repetitionErrorRemove: boolean; // 是否进行错误上报去重

@@ -1,6 +1,6 @@
-import { LogTypes } from '@web-guard/common';
-import { IBaseLog } from '@web-guard/types';
-import { getUUIDFromLog } from '@web-guard/utils';
+import { LogTypes } from '@webguard/common';
+import { IBaseLog } from '@webguard/types';
+import { getUUIDFromLog } from '@webguard/utils';
 
 describe('uuid', () => {
   it('should be able to get uuid from log', () => {

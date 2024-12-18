@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { WebGuard } from '@web-guard/core';
+import { WebGuard } from '@webguard/core';
 export function setupAsyncTests(guard: WebGuard) {
   const fetchBtn = document.getElementById('fetchBtn');
   if (fetchBtn) {

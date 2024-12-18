@@ -1,5 +1,5 @@
-import { BreadcrumbConfig, IBreadcrumbData } from '@web-guard/types';
-import { LinkedList } from '@web-guard/utils';
+import { BreadcrumbConfig, IBreadcrumbData } from '@webguard/types';
+import { LinkedList } from '@webguard/utils';
 
 export class Breadcrumb {
   maxBreadcrumbs!: number;

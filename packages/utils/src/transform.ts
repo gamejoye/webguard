@@ -1,4 +1,4 @@
-import { EventTypes, BreadcrumbTypes, BreadcrumbLevel } from '@web-guard/common';
+import { EventTypes, BreadcrumbTypes, BreadcrumbLevel } from '@webguard/common';
 
 /**
  * 将 EventTypes 转换为对应的 BreadcrumbTypes

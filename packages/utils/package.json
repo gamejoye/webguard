@@ -1,5 +1,5 @@
 {
-  "name": "@web-guard/utils",
+  "name": "@webguard/utils",
   "version": "1.0.0",
   "description": "监控系统工具包",
   "private": true,
@@ -21,7 +21,7 @@
   "author": "gamejoye <gamejoye@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "@web-guard/common": "workspace:^",
-    "@web-guard/types": "workspace:^"
+    "@webguard/common": "workspace:^",
+    "@webguard/types": "workspace:^"
   }
 }

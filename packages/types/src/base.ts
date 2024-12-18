@@ -1,4 +1,4 @@
-import { BreadcrumbLevel, BreadcrumbTypes, LogTypes } from '@web-guard/common';
+import { BreadcrumbLevel, BreadcrumbTypes, LogTypes } from '@webguard/common';
 
 export interface IBaseLog {
   timestamp: number; // 日志产生的时间戳

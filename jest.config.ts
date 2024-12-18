@@ -6,7 +6,7 @@ const config: Config = {
   roots: ['<rootDir>/packages'],
   testMatch: ['**/__tests__/**/*.test.ts'],
   moduleNameMapper: {
-    '^@web-guard/(.*)$': '<rootDir>/packages/$1/src',
+    '^@webguard/(.*)$': '<rootDir>/packages/$1/src',
   },
   collectCoverage: true,
   coverageDirectory: 'coverage',

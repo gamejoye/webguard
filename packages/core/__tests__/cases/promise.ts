@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { WebGuard } from '@web-guard/core';
+import { WebGuard } from '@webguard/core';
 
 export function setupPromiseTests(guard: WebGuard) {
   document.getElementById('promiseErrorBtn')?.addEventListener('click', () => {

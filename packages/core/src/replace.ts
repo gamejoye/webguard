@@ -1,6 +1,6 @@
-import { EventTypes, WINDOW } from '@web-guard/common';
-import { EventMaps } from '@web-guard/types';
-import { getFlag } from '@web-guard/utils';
+import { EventTypes, WINDOW } from '@webguard/common';
+import { EventMaps } from '@webguard/types';
+import { getFlag } from '@webguard/utils';
 import { EventHandlers } from './event-handlers';
 
 export function initRelace() {
