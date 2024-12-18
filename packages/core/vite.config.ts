@@ -21,6 +21,7 @@ export default defineConfig({
   },
   build: {
     emptyOutDir: false,
+    target: 'esnext',
     outDir: path.resolve(__dirname, './dist'),
     lib: {
       entry: resolve(__dirname, 'src/index.ts'),
@@ -32,6 +33,7 @@ export default defineConfig({
       output: {
         sourcemap: true, // 生成 sourcemap
       },
+      external: ['@webguard/common', '@webguard/types', '@webguard/utils'],
     },
     minify: true,
   },

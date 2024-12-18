@@ -24,8 +24,12 @@ entrys.forEach(({ entry, fileName }) => {
       emptyOutDir: false,
       lib: {
         entry,
+        name: '@webguard/utils',
         formats: ['es', 'cjs'],
         fileName: format => fileName(format),
+      },
+      rollupOptions: {
+        external: ['@webguard/common', '@webguard/types'],
       },
     },
   });
