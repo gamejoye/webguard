@@ -45,21 +45,22 @@ packages/
 ├── core/          # 核心功能实现
 ├── common/        # 公共代码和常量
 ├── types/         # TypeScript 类型定义
-└── utils/         # 工具函数
+├── utils/         # 工具函数
+└── webguard/      # 聚合包
 ```
 
 ## 下载
 
 ```
-npm install @webguard/core
+npm install webguard
 ```
 
 ## 使用
 
 ```
-import { Guard } from '@webguard/core' // 引入核心包
+import WebGuard from 'webguard' // 引入核心包
 
-Guard.init({
+WebGuard.init({
   targetUrl: 'testurl',
   breadcrumbConfig: {
     maxBreadcrumbs: 10,
