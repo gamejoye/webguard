@@ -14,7 +14,7 @@ setupAsyncTests(guard);
 setupScriptErrorTests(guard);
 
 guard.init({
-  targetUrl: 'testurl',
+  targetUrl: 'http://localhost:3001/data',
   breadcrumbConfig: {
     maxBreadcrumbs: 10,
     beforePushBreadcrumb: breadcrumb => {
