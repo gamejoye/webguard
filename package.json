@@ -13,6 +13,10 @@
     "test:watch": "jest --runInBand --watch",
     "test:coverage": "jest --runInBand --coverage"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gamejoye/webguard.git"
+  },
   "keywords": [
     "web guard",
     "web monitor",

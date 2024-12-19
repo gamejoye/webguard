@@ -131,6 +131,18 @@ importers:
         specifier: workspace:^
         version: link:../types
 
+  packages/webguard:
+    dependencies:
+      '@webguard/core':
+        specifier: workspace:*
+        version: link:../core
+      '@webguard/types':
+        specifier: workspace:*
+        version: link:../types
+      '@webguard/utils':
+        specifier: workspace:*
+        version: link:../utils
+
 packages:
   '@ampproject/remapping@2.3.0':
     resolution:

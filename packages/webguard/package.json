@@ -1,0 +1,40 @@
+{
+  "name": "webguard",
+  "description": "一个轻量级的前端监控系统，帮助你实时监控和诊断 Web 应用的问题。",
+  "version": "1.0.2",
+  "main": "dist/index.cjs",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "exports": {
+    ".": {
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.cjs",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json && vite build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gamejoye/webguard.git"
+  },
+  "keywords": [
+    "web guard",
+    "web monitor",
+    "web error",
+    "web performance",
+    "web error monitor",
+    "web performance monitor"
+  ],
+  "author": "gamejoye <gamejoye@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "@webguard/core": "workspace:*",
+    "@webguard/utils": "workspace:*",
+    "@webguard/types": "workspace:*"
+  }
+}
