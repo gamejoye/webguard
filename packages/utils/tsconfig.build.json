@@ -1,6 +1,20 @@
 {
-  "extends": "./tsconfig.json",
   "compilerOptions": {
+    "target": "esnext",
+    "module": "esnext",
+    "baseUrl": ".",
+    "outDir": "dist",
+    "declarationDir": "dist",
+    "lib": ["esnext", "dom", "dom.iterable"],
+    "moduleResolution": "node",
+    "strict": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "esModuleInterop": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noImplicitReturns": true,
+    "skipLibCheck": true,
     "declaration": true,
     "emitDeclarationOnly": true
   },

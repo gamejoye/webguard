@@ -1,20 +1,3 @@
 {
-  "compilerOptions": {
-    "target": "esnext",
-    "module": "esnext",
-    "declaration": true,
-    "baseUrl": ".",
-    "outDir": "dist",
-    "lib": ["esnext", "dom", "dom.iterable"],
-    "moduleResolution": "node",
-    "strict": true,
-    "resolveJsonModule": true,
-    "isolatedModules": true,
-    "esModuleInterop": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "noImplicitReturns": true,
-    "skipLibCheck": true
-  },
-  "include": ["src", "../../global.d.ts"]
+  "extends": "../../tsconfig.json"
 }
