@@ -32,14 +32,20 @@ export type BreadcrumbConfig = {
   beforePushBreadcrumb?: BreadcrumbBeforePush;
 };
 
+export interface IMonitorReportData {
+  log: IBaseLog | IErrorLog;
+  breadcrumbs: IBreadcrumbData[];
+}
+
+export type MonitorReporterBeforePost = (data: IMonitorReportData) => IMonitorReportData | null;
+
 export type MonitorReporterConfig = {
   repetitionErrorRemove?: boolean; // 是否进行错误上报去重
+  beforePost?: MonitorReporterBeforePost;
 };
 
-export type WebGuardInitConfig = {
+export type InitConfig = {
   targetUrl: string; // 错误上报服务器
-  needCatchError?: boolean; // 是否全局监听error事件
-  needCatchUnhandledrejection?: boolean; // 是否监听Promise reject
   monitorReporterConfig?: MonitorReporterConfig; // 监控上报配置
   breadcrumbConfig?: BreadcrumbConfig; // 面包屑配置
 };
