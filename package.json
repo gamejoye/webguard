@@ -11,7 +11,8 @@
     "lint-fix": "eslint \"**/*.{js,jsx,ts,tsx}\" --fix",
     "test": "jest --runInBand",
     "test:watch": "jest --runInBand --watch",
-    "test:coverage": "jest --runInBand --coverage"
+    "test:coverage": "jest --runInBand --coverage",
+    "publish": "pnpm lerna publish"
   },
   "repository": {
     "type": "git",
