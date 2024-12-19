@@ -1,6 +1,6 @@
 {
   "name": "@webguard/utils",
-  "version": "1.0.3-alpha.0",
+  "version": "1.0.3-alpha.1",
   "description": "监控系统工具包",
   "types": "dist/index.d.ts",
   "files": [
