@@ -12,7 +12,7 @@
     "test": "jest --runInBand",
     "test:watch": "jest --runInBand --watch",
     "test:coverage": "jest --runInBand --coverage",
-    "publish": "pnpm lerna publish"
+    "publish": "pnpm lerna run build && pnpm lerna publish"
   },
   "repository": {
     "type": "git",
