@@ -1,12 +1,12 @@
-import { BreadcrumbConfig, IBreadcrumbData } from '@webguard/types';
+import { IBreadcrumbData, InitConfig } from '@webguard/types';
 import { LinkedList } from '@webguard/utils';
 
 export class Breadcrumb {
   maxBreadcrumbs!: number;
   beforePushBreadcrumb?: (breadcrumb: IBreadcrumbData) => IBreadcrumbData | null;
   stack: LinkedList<IBreadcrumbData>;
-  constructor(config: BreadcrumbConfig = {}) {
-    this.bindConfig(config);
+  constructor() {
+    this.maxBreadcrumbs = 20;
     this.stack = new LinkedList<IBreadcrumbData>();
   }
 
@@ -33,9 +33,14 @@ export class Breadcrumb {
     return this.stack.toArray();
   }
 
-  bindConfig(config: BreadcrumbConfig): void {
-    this.maxBreadcrumbs = config.maxBreadcrumbs ?? 30;
-    this.beforePushBreadcrumb = config.beforePushBreadcrumb;
+  bindConfig(config: Required<InitConfig>): void {
+    const { breadcrumbConfig } = config;
+    if (breadcrumbConfig.maxBreadcrumbs !== undefined) {
+      this.maxBreadcrumbs = breadcrumbConfig.maxBreadcrumbs;
+    }
+    if (breadcrumbConfig.beforePushBreadcrumb !== undefined) {
+      this.beforePushBreadcrumb = breadcrumbConfig.beforePushBreadcrumb;
+    }
   }
 }
 
