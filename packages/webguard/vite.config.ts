@@ -10,7 +10,7 @@ export default defineConfig({
       fileName: format => `index.${format === 'es' ? 'mjs' : 'cjs'}`,
     },
     rollupOptions: {
-      external: ['@webguard/core', '@webguard/utils', '@webguard/types'],
+      external: ['@webguard/core', '@webguard/types'],
     },
     sourcemap: true,
   },
