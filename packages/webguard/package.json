@@ -1,7 +1,7 @@
 {
   "name": "webguard",
   "description": "一个轻量级的前端监控系统，帮助你实时监控和诊断 Web 应用的问题。",
-  "version": "1.0.3-alpha.4",
+  "version": "1.0.3",
   "main": "dist/index.cjs",
   "module": "dist/index.mjs",
   "types": "dist/index.d.ts",

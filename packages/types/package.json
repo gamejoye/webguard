@@ -1,6 +1,6 @@
 {
   "name": "@webguard/types",
-  "version": "1.0.3-alpha.2",
+  "version": "1.0.3",
   "description": "监控系统类型包",
   "types": "dist/index.d.ts",
   "files": [
