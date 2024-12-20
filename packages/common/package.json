@@ -1,6 +1,6 @@
 {
   "name": "@webguard/common",
-  "version": "1.0.3-alpha.1",
+  "version": "1.0.3-alpha.2",
   "description": "监控系统基础包",
   "main": "dist/index.cjs",
   "module": "dist/index.mjs",
