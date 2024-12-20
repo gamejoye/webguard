@@ -3,7 +3,6 @@
   "description": "一个轻量级的前端监控系统，帮助你实时监控和诊断 Web 应用的问题。",
   "scripts": {
     "preinstall": "npx only-allow pnpm",
-    "build": "rollup -c",
     "dev:core": "pnpm --filter core run dev",
     "start:coreserver": "pnpm --filter core run server",
     "prepare": "husky",
