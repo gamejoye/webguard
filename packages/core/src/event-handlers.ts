@@ -1,13 +1,55 @@
-import { getPageUrl, getUserAgent, stringifyTarget, isSameOrigin } from '@webguard/utils';
+import {
+  getPageUrl,
+  getUserAgent,
+  stringifyTarget,
+  isSameOrigin,
+  EventEmitter,
+  getFlag,
+} from '@webguard/utils';
 import { ErrorLog, Breadcrumb } from './models';
 import { reporter } from './repoter';
 import { breadcrumb } from './breadcrumb';
 import { BreadcrumbLevel, BreadcrumbTypes, LogTypes } from '@webguard/common';
+import { EventMaps, ExtraXMLHttpRequest, Flags, RouteData } from '@webguard/types';
 
-type ExtraXMLHttpRequest = {
-  method: string;
-  requestURL: string;
-};
+export const handlersEmitter = new EventEmitter<EventMaps>();
+
+export function subscribeEventWithFlags(type: Flags) {
+  const isEnable = getFlag(type);
+  if (!isEnable) return false;
+  switch (type) {
+    case 'onClick':
+      handlersEmitter.on('CLICK', EventHandlers.handleClick);
+      break;
+    case 'onError':
+      handlersEmitter.on('ERROR', EventHandlers.handleError);
+      break;
+    case 'onKeyDown':
+      handlersEmitter.on('KEYDOWN', EventHandlers.handleKeyDown);
+      break;
+    case 'onKeyUp':
+      handlersEmitter.on('KEYUP', EventHandlers.handleKeyUp);
+      break;
+    case 'onFetch':
+      handlersEmitter.on('FETCH', EventHandlers.handleFetch);
+      break;
+    case 'onXHR':
+      handlersEmitter.on('XHR', EventHandlers.handleXHR);
+      break;
+    case 'onRoute':
+      handlersEmitter.on('ROUTE', EventHandlers.handleRoute);
+      break;
+    case 'onResourceError':
+      handlersEmitter.on('RESOURCE_ERROR', EventHandlers.handleResourceError);
+      break;
+    case 'onUnHandledRejection':
+      handlersEmitter.on('UNHANDLED_REJECTION', EventHandlers.handleUnHandledRejection);
+      break;
+    default:
+      break;
+  }
+  return true;
+}
 
 export const EventHandlers = {
   handleError(e: ErrorEvent): void {
@@ -108,111 +150,77 @@ export const EventHandlers = {
     });
     breadcrumb.push(breadcrumbData);
   },
-  // 重写fetch
-  fetchReplacer(originalFetch: typeof fetch) {
-    return function (...args: Parameters<typeof fetch>) {
-      return originalFetch(...args)
-        .then(res => {
-          if (!res.ok) {
-            // 错误处理
-            const init = args[1];
-            const message = [
-              `Failed to fetch ${res.url}`,
-              `[status]: ${res.status}`,
-              `[statusText]: ${res.statusText}`,
-              `[method]: ${init?.method ?? 'GET'}`,
-              `[body]: ${init?.body ?? ''}`,
-              `[type]: ${res.type}`,
-            ].join('\n');
-            const log = new ErrorLog({
-              type: LogTypes.REQUEST_ERROR,
-              pageUrl: getPageUrl(),
-              userAgent: getUserAgent(),
-              errorMessage: message,
-            });
-            reporter.send(log);
-          }
-          return res;
-        })
-        .catch(error => {
-          // 错误处理
-          let filename = '';
-          let line = -1;
-          let column = -1;
-          let message = 'Failed to fetch';
-          if (error instanceof Error) {
-            const info = getErrorStackInfo(error);
-            filename = info.filename;
-            line = info.line;
-            column = info.column;
-            message = error.message;
-          }
-          const log = new ErrorLog({
-            type: LogTypes.REQUEST_ERROR,
-            pageUrl: getPageUrl(),
-            userAgent: getUserAgent(),
-            errorMessage: message,
-            errorStack: getStackLines(error.stack),
-            filename,
-            line,
-            column,
-          });
-          reporter.send(log);
-          throw error;
-        });
-    };
+  handleFetch(args: Parameters<typeof fetch>, res: Response | null, error: any) {
+    let log: ErrorLog;
+    if (res) {
+      const init = args[1];
+      const message = [
+        `Failed to fetch ${res.url}`,
+        `[status]: ${res.status}`,
+        `[statusText]: ${res.statusText}`,
+        `[method]: ${init?.method ?? 'GET'}`,
+        `[body]: ${init?.body ?? ''}`,
+        `[type]: ${res.type}`,
+      ].join('\n');
+      log = new ErrorLog({
+        type: LogTypes.REQUEST_ERROR,
+        pageUrl: getPageUrl(),
+        userAgent: getUserAgent(),
+        errorMessage: message,
+      });
+    } else {
+      let filename = '';
+      let line = -1;
+      let column = -1;
+      let message = 'Failed to fetch';
+      if (error instanceof Error) {
+        const info = getErrorStackInfo(error);
+        filename = info.filename;
+        line = info.line;
+        column = info.column;
+        message = error.message;
+      }
+      log = new ErrorLog({
+        type: LogTypes.REQUEST_ERROR,
+        pageUrl: getPageUrl(),
+        userAgent: getUserAgent(),
+        errorMessage: message,
+        errorStack: getStackLines(error.stack),
+        filename,
+        line,
+        column,
+      });
+    }
+    reporter.send(log);
   },
-  // 重写XMLHttpRequest
-  xhrReplacer(originalXHR: typeof XMLHttpRequest) {
-    const originalSend = originalXHR.prototype.send;
-    const originalOpen = originalXHR.prototype.open;
-    const shouldSkipHandler = (e: ProgressEvent<XMLHttpRequestEventTarget>) => {
-      const status = (e.target as XMLHttpRequest & ExtraXMLHttpRequest).status;
-      const type = e.type;
-      // 正常情况 + 超时情况/错误情况 触发的loadend
-      return (type === 'loadend' && status === 0) || (status + '').startsWith('2');
-    };
-    originalXHR.prototype.open = function open(
-      this: XMLHttpRequest & ExtraXMLHttpRequest,
-      method: string,
-      url: string | URL,
-      async: boolean = true,
-      username?: string | null,
-      password?: string | null
-    ) {
-      this.method = method;
-      this.requestURL = typeof url === 'string' ? url : url.toString();
-      return originalOpen.apply(this, [method, url, async, username, password]);
-    };
-    originalXHR.prototype.send = function send(
-      this: XMLHttpRequest & ExtraXMLHttpRequest,
-      ...args: Parameters<typeof originalSend>
-    ) {
-      const handler = function (e: ProgressEvent<XMLHttpRequestEventTarget>) {
-        const { responseURL, requestURL, status, statusText, method, responseText } =
-          e.target as XMLHttpRequest & ExtraXMLHttpRequest;
-        if (shouldSkipHandler(e)) return;
-        const message = [
-          `Failed to XHR ${responseURL || requestURL}`,
-          `[status]: ${status}`,
-          `[statusText]: ${statusText}`,
-          `[method]: ${method}`,
-          `[body]: ${responseText}`,
-          `[xhr listener type]: ${e.type}`,
-        ].join('\n');
-        const log = new ErrorLog({
-          type: LogTypes.REQUEST_ERROR,
-          pageUrl: getPageUrl(),
-          userAgent: getUserAgent(),
-          errorMessage: message,
-        });
-        reporter.send(log);
-      };
-      this.addEventListener('error', handler);
-      this.addEventListener('loadend', handler);
-      this.addEventListener('timeout', handler);
-      return originalSend.apply(this, args);
-    };
+  handleXHR(e: ProgressEvent<ExtraXMLHttpRequest>) {
+    const { responseURL, requestURL, status, statusText, method, responseText } = e.target!;
+    if (shouldSkipXhrHandler(e)) return;
+    const message = [
+      `Failed to XHR ${responseURL || requestURL}`,
+      `[status]: ${status}`,
+      `[statusText]: ${statusText}`,
+      `[method]: ${method}`,
+      `[body]: ${responseText}`,
+      `[xhr listener type]: ${e.type}`,
+    ].join('\n');
+    const log = new ErrorLog({
+      type: LogTypes.REQUEST_ERROR,
+      pageUrl: getPageUrl(),
+      userAgent: getUserAgent(),
+      errorMessage: message,
+    });
+    reporter.send(log);
+  },
+  handleRoute(data: RouteData) {
+    const { from, to } = data;
+    const message = `route from ${from} to ${to}`;
+    const breadcrumbData = new Breadcrumb({
+      type: BreadcrumbTypes.ROUTE,
+      level: BreadcrumbLevel.INFO,
+      message,
+    });
+    breadcrumb.push(breadcrumbData);
   },
 };
 
@@ -280,4 +288,11 @@ const isResourceElement = (target: any) => {
     target instanceof HTMLImageElement ||
     target instanceof HTMLLinkElement
   );
+};
+
+const shouldSkipXhrHandler = (e: ProgressEvent<XMLHttpRequestEventTarget>) => {
+  const status = (e.target as ExtraXMLHttpRequest).status;
+  const type = e.type;
+  // 正常情况 + 超时情况/错误情况 触发的loadend
+  return (type === 'loadend' && status === 0) || (status + '').startsWith('2');
 };
