@@ -30,7 +30,7 @@
 
 ### 🔎 用户行为追踪
 
-- ⏳ 路由变化
+- ✅ 路由变化
 - ✅ 点击事件
 - ✅ 键盘事件
 - ⏳ HTTP请求
@@ -142,7 +142,7 @@ fix(utils): fix type conversion
 ## 技术栈
 
 - TypeScript
-- Rollup
+- Vite
 - ESLint + Prettier
 - Husky + Commitlint
 - Jest
