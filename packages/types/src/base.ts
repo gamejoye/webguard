@@ -50,13 +50,36 @@ export type InitConfig = {
   breadcrumbConfig?: BreadcrumbConfig; // 面包屑配置
 };
 
-export type EventMaps = {
-  onError: (e: ErrorEvent) => void;
-  onResourceError: (e: Event) => void;
-  onUnHandledUnrejection: (e: PromiseRejectionEvent) => void;
-  onClick: (e: MouseEvent) => void;
-  onKeyDown: (e: KeyboardEvent) => void;
-  onKeyUp: (e: KeyboardEvent) => void;
-  onFetch: (originalFetch: typeof fetch) => typeof fetch;
-  onXHR: (originalSend: typeof XMLHttpRequest) => void;
+export type ExtraXMLHttpRequest = XMLHttpRequest & {
+  method: string;
+  requestURL: string;
+  url: string | URL;
 };
+
+export type RouteData = {
+  from: string;
+  to: string;
+};
+
+export type EventMaps = {
+  ERROR: (e: ErrorEvent) => void;
+  RESOURCE_ERROR: (e: Event) => void;
+  UNHANDLED_REJECTION: (e: PromiseRejectionEvent) => void;
+  CLICK: (e: MouseEvent) => void;
+  KEYDOWN: (e: KeyboardEvent) => void;
+  KEYUP: (e: KeyboardEvent) => void;
+  FETCH: (args: Parameters<typeof fetch>, res: Response | null, error: any) => void;
+  XHR: (e: ProgressEvent<ExtraXMLHttpRequest>) => void;
+  ROUTE: (params: RouteData) => void;
+};
+
+export type Flags =
+  | 'onError'
+  | 'onResourceError'
+  | 'onUnHandledRejection'
+  | 'onClick'
+  | 'onKeyDown'
+  | 'onKeyUp'
+  | 'onFetch'
+  | 'onXHR'
+  | 'onRoute';

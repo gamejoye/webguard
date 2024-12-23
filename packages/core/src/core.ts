@@ -15,12 +15,13 @@ export class WebGuard {
     initFlags([
       ['onError', true],
       ['onResourceError', true],
-      ['onUnHandledUnrejection', true],
+      ['onUnHandledRejection', true],
       ['onClick', true],
       ['onKeyDown', true],
       ['onKeyUp', true],
       ['onFetch', true],
       ['onXHR', true],
+      ['onRoute', true],
     ]);
     initRelace();
     reporter.bindConfig(this.config);
