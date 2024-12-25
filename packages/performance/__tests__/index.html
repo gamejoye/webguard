@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Performance</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      margin: 0;
+      padding: 20px;
+      background-color: #f4f4f9;
+    }
+    h1 {
+      text-align: center;
+      color: #333;
+    }
+    .performance-container {
+      max-width: 600px;
+      margin: 20px auto;
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+    }
+    .metric {
+      display: flex;
+      justify-content: space-between;
+      padding: 15px 10px;
+      border-bottom: 1px solid #ddd;
+    }
+    .metric:last-child {
+      border-bottom: none;
+    }
+    .metric-name {
+      color: #555;
+      font-size: 16px;
+    }
+    .metric-value {
+      color: #007BFF;
+      font-size: 18px;
+      font-weight: bold;
+    }
+    .loading {
+      text-align: center;
+      color: #999;
+      font-size: 14px;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <h1>性能测试（单位:毫秒）</h1>
+
+  <div class="performance-container">
+    <div class="metric">
+      <span class="metric-name">First Paint (FP):</span>
+      <span class="metric-value" id="fp-value">--</span>
+    </div>
+    <div class="metric">
+      <span class="metric-name">First Contentful Paint (FCP):</span>
+      <span class="metric-value" id="fcp-value">--</span>
+    </div>
+    <div class="metric">
+      <span class="metric-name">Largest Contentful Paint (LCP):</span>
+      <span class="metric-value" id="lcp-value">--</span>
+    </div>
+    <div class="metric">
+      <span class="metric-name">Interaction to Next Paint (INP):</span>
+      <span class="metric-value" id="inp-value">--</span>
+    </div>
+    <div class="metric">
+      <span class="metric-name">Cumulative Layout Shift (CLS):</span>
+      <span class="metric-value" id="cls-value">--</span>
+    </div>
+    <div class="metric">
+      <span class="metric-name">Time To First Byte (TTFB):</span>
+      <span class="metric-value" id="ttfb-value">--</span>
+    </div>
+  </div>
+
+  <div class="loading" id="loading">Loading performance data...</div>
+
+  <script type="module" src="./main.ts"></script>
+</body>
+</html>
