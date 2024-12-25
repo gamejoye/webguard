@@ -116,6 +116,24 @@ importers:
         specifier: ^4.21.2
         version: 4.21.2
 
+  packages/performance:
+    dependencies:
+      '@webguard/core':
+        specifier: workspace:^
+        version: link:../core
+      '@webguard/types':
+        specifier: workspace:^
+        version: link:../types
+      '@webguard/utils':
+        specifier: workspace:^
+        version: link:../utils
+      bowser:
+        specifier: ^2.11.0
+        version: 2.11.0
+      web-vitals:
+        specifier: ^4.2.4
+        version: 4.2.4
+
   packages/types:
     dependencies:
       '@webguard/common':
@@ -2382,6 +2400,12 @@ packages:
         integrity: sha512-7rAxByjUMqQ3/bHJy7D6OGXvx/MMc4IqBn/X0fcM1QUcAItpZrBEYhWGem+tzXH90c+G01ypMcYJBO9Y30203g==,
       }
     engines: { node: '>= 0.8', npm: 1.2.8000 || >= 1.4.16 }
+
+  bowser@2.11.0:
+    resolution:
+      {
+        integrity: sha512-AlcaJBi/pqqJBIQ8U9Mcpc9i8Aqxn88Skv5d+xBX006BY5u8N3mGLHa5Lgppa7L/HfwgwLgZ6NYs+Ag6uUmJRA==,
+      }
 
   brace-expansion@1.1.11:
     resolution:
@@ -5677,6 +5701,12 @@ packages:
         integrity: sha512-ts/8E8l5b7kY0vlWLewOkDXMmPdLcVV4GmOQLyxuSswIJsweeFZtAsMF7k1Nszz+TYBQrlYRmzOnr398y1JemQ==,
       }
 
+  web-vitals@4.2.4:
+    resolution:
+      {
+        integrity: sha512-r4DIlprAGwJ7YM11VZp4R884m0Vmgr6EAKe3P+kO0PPj3Unqyvv59rczf6UiGcb9Z8QxZVcqKNwv/g0WNdWwsw==,
+      }
+
   webidl-conversions@7.0.0:
     resolution:
       {
@@ -7507,6 +7537,8 @@ snapshots:
       unpipe: 1.0.0
     transitivePeerDependencies:
       - supports-color
+
+  bowser@2.11.0: {}
 
   brace-expansion@1.1.11:
     dependencies:
@@ -9538,6 +9570,8 @@ snapshots:
   walker@1.0.8:
     dependencies:
       makeerror: 1.0.12
+
+  web-vitals@4.2.4: {}
 
   webidl-conversions@7.0.0: {}
 

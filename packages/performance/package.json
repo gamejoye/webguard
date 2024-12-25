@@ -1,0 +1,36 @@
+{
+  "name": "@webguard/performance",
+  "version": "1.0.3",
+  "description": "监控系统性能监控包",
+  "main": "dist/index.cjs",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/",
+    "access": "public"
+  },
+  "exports": {
+    ".": {
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.cjs",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "scripts": {
+    "dev": "vite",
+    "build": "rm -rf dist && tsc -p tsconfig.build.json && vite build"
+  },
+  "keywords": [],
+  "author": "gamejoye <gamejoye@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "@webguard/core": "workspace:^",
+    "@webguard/types": "workspace:^",
+    "@webguard/utils": "workspace:^",
+    "bowser": "^2.11.0",
+    "web-vitals": "^4.2.4"
+  }
+}
