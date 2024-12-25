@@ -83,3 +83,37 @@ export type Flags =
   | 'onFetch'
   | 'onXHR'
   | 'onRoute';
+
+export type PerformanceData = {
+  name: string;
+  value: number;
+  rating: 'good' | 'normal' | 'bad';
+};
+
+export type FPData = {
+  value: number;
+};
+
+export type FCPData = {
+  value: number;
+};
+
+export type LCPData = {
+  value: number;
+};
+
+export type CLSData = {
+  value: number;
+};
+
+export type INPData = {
+  value: number;
+};
+
+export type TTFBData = {
+  value: number;
+};
+
+export type PerformanceCallback<
+  T extends FPData | FCPData | LCPData | CLSData | INPData | TTFBData,
+> = (data: T) => void;
