@@ -1,7 +1,7 @@
-import { IBreadcrumbData, InitConfig } from '@webguard/types';
+import { IBreadcrumb, IBreadcrumbData, InitConfig } from '@webguard/types';
 import { LinkedList } from '@webguard/utils';
 
-export class Breadcrumb {
+export class Breadcrumb implements IBreadcrumb {
   maxBreadcrumbs!: number;
   beforePushBreadcrumb?: (breadcrumb: IBreadcrumbData) => IBreadcrumbData | null;
   stack: LinkedList<IBreadcrumbData>;

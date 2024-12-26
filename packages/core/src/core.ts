@@ -10,6 +10,7 @@ export class WebGuard {
     this.config = {
       monitorReporterConfig: {},
       breadcrumbConfig: {},
+      plugins: [],
       ...config,
     };
     initFlags([
@@ -26,6 +27,17 @@ export class WebGuard {
     initRelace();
     reporter.bindConfig(this.config);
     breadcrumb.bindConfig(this.config);
+
+    this.config.plugins.forEach(plugin => {
+      plugin.apply({
+        ...this.config,
+        on: () => {},
+        once: () => {},
+        emit: () => {},
+        reporter,
+        breadcrumb,
+      });
+    });
   }
 }
 

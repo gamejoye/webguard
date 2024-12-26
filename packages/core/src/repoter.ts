@@ -1,12 +1,12 @@
-import { InitConfig, MonitorReporterBeforePost } from '@webguard/types';
+import { IMonitorReporter, InitConfig, MonitorReporterBeforePost } from '@webguard/types';
 import { getUUIDFromLog } from '@webguard/utils';
 import { breadcrumb } from './breadcrumb';
-import { ErrorLog, ReporterData } from './models';
+import { BaseLog, ReporterData } from './models';
 import { WINDOW } from '@webguard/common';
 
 const isEmpty = (url: string) => url.trim() === '';
 
-export class MonitorReporter {
+export class MonitorReporter implements IMonitorReporter {
   targetUrl: string;
   repetitionErrorRemove: boolean; // 是否进行错误上报去重
   existLogUUIDs: Set<string>;
@@ -29,7 +29,7 @@ export class MonitorReporter {
     }
   }
 
-  async send(log: ErrorLog): Promise<void> {
+  async send(log: BaseLog): Promise<void> {
     if (!this.repetitionErrorRemove) {
       return this.immediateSend(log);
     }
@@ -56,7 +56,7 @@ export class MonitorReporter {
     xhr.send(JSON.stringify(data));
   }
 
-  async immediateSend(log: ErrorLog): Promise<void> {
+  async immediateSend(log: BaseLog): Promise<void> {
     if (isEmpty(this.targetUrl)) {
       console.warn('webguard: targetUrl为空，请在init中配置targetUrl！');
       return;
