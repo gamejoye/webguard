@@ -121,9 +121,6 @@ importers:
       '@webguard/common':
         specifier: workspace:^
         version: link:../../common
-      '@webguard/core':
-        specifier: workspace:^
-        version: link:../../core
       '@webguard/types':
         specifier: workspace:^
         version: link:../../types
