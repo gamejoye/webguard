@@ -1,6 +1,11 @@
 import { BreadcrumbLevel, BreadcrumbTypes, LogTypes, LogCategoies } from '@webguard/common';
 import { GetFunctionParams } from './utils';
 
+export interface IMonitorReporter {
+  bindConfig(config: Required<InitConfig>): void;
+  send(log: IBaseLog): Promise<void>;
+}
+
 export interface IBaseLog {
   timestamp: number; // 日志产生的时间戳
   category: LogCategoies; // 日志大类
@@ -21,6 +26,13 @@ export interface IErrorLog extends IBaseLog {
 
 export interface IUXPerformanceLog extends IBaseLog {
   uxPerformanceData: UXPerformanceData[]; // 用户体验数据
+}
+
+export interface IBreadcrumb {
+  push(breadcrumb: IBreadcrumbData): IBreadcrumbData | null;
+  clear(): void;
+  getStack(): IBreadcrumbData[];
+  bindConfig(config: Required<InitConfig>): void;
 }
 
 export interface IBreadcrumbData {
@@ -54,6 +66,7 @@ export type InitConfig = {
   targetUrl: string; // 错误上报服务器
   monitorReporterConfig?: MonitorReporterConfig; // 监控上报配置
   breadcrumbConfig?: BreadcrumbConfig; // 面包屑配置
+  plugins?: IPlugin[];
 };
 
 export type ExtraXMLHttpRequest = XMLHttpRequest & {
@@ -90,10 +103,13 @@ export type Flags =
   | 'onXHR'
   | 'onRoute';
 
+export type UxPerformanceTypes = 'FP' | 'FCP' | 'LCP' | 'CLS' | 'INP' | 'TTFB';
+export type UxPerformanceRating = 'good' | 'normal' | 'bad';
+
 export type UXPerformanceData = {
-  name: string;
+  name: UxPerformanceTypes;
   value: number;
-  rating: 'good' | 'normal' | 'bad';
+  rating: UxPerformanceRating;
 };
 
 export type FPData = {
@@ -130,3 +146,23 @@ export interface IEventEmitter<T extends { [k: string]: (...arg: any[]) => void 
   once<E extends keyof T>(type: E, handler: T[E]): void;
   off<E extends keyof T>(type: E, handler?: T[E]): void;
 }
+
+export type PluginContext = Omit<IEventEmitter<EventMaps>, 'off'> &
+  InitConfig & {
+    breadcrumb: IBreadcrumb;
+    reporter: IMonitorReporter;
+  };
+
+export interface IPlugin {
+  name: string;
+  apply(context: PluginContext): void;
+}
+
+export type PerformancePluginConfig = {
+  onFP?: PerformanceCallback<FPData>;
+  onFCP?: PerformanceCallback<FCPData>;
+  onLCP?: PerformanceCallback<LCPData>;
+  onINP?: PerformanceCallback<INPData>;
+  onCLS?: PerformanceCallback<CLSData>;
+  onTTFB?: PerformanceCallback<TTFBData>;
+};
