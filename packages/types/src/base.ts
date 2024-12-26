@@ -1,9 +1,10 @@
-import { BreadcrumbLevel, BreadcrumbTypes, LogTypes } from '@webguard/common';
+import { BreadcrumbLevel, BreadcrumbTypes, LogTypes, LogCategoies } from '@webguard/common';
 import { GetFunctionParams } from './utils';
 
 export interface IBaseLog {
   timestamp: number; // 日志产生的时间戳
-  type: LogTypes; // 日志类型
+  category: LogCategoies; // 日志大类
+  type: LogTypes; // 日志类型具体细分
   pageUrl: string; // 页面 URL
   userAgent: string; // 用户的设备、浏览器信息
   sessionId: string; // 用户会话 ID

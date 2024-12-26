@@ -1,8 +1,9 @@
-import { LogTypes } from '@webguard/common';
-import { IBaseLog, IErrorLog } from '@webguard/types';
+import { LogCategoies, LogTypes } from '@webguard/common';
+import { IBaseLog, IErrorLog, IUXPerformanceLog, UXPerformanceData } from '@webguard/types';
 
 export class BaseLog implements IBaseLog {
   timestamp: number;
+  category: LogCategoies;
   type: LogTypes;
   pageUrl: string;
   userAgent: string;
@@ -11,6 +12,7 @@ export class BaseLog implements IBaseLog {
 
   constructor(options: Partial<IBaseLog> = {}) {
     this.timestamp = options.timestamp ?? Date.now();
+    this.category = options.category ?? LogCategoies.ERROR_LOG;
     this.type = options.type ?? LogTypes.JS_ERROR;
     this.pageUrl = options.pageUrl ?? '';
     this.userAgent = options.userAgent ?? '';
@@ -28,10 +30,20 @@ export class ErrorLog extends BaseLog implements IErrorLog {
 
   constructor(options: Partial<IErrorLog> = {}) {
     super(options);
+    this.category = LogCategoies.ERROR_LOG;
     this.errorStack = options.errorStack ?? '';
     this.errorMessage = options.errorMessage ?? '';
     this.filename = options.filename ?? '';
     this.line = options.line ?? -1;
     this.column = options.column ?? -1;
+  }
+}
+
+export class UXPerformanceLog extends BaseLog implements IUXPerformanceLog {
+  uxPerformanceData: UXPerformanceData[];
+  constructor(options: Partial<IUXPerformanceLog> = {}) {
+    super(options);
+    this.category = LogCategoies.UX_PERFORMANCE_LOG;
+    this.uxPerformanceData = options.uxPerformanceData ?? [];
   }
 }

@@ -4,6 +4,12 @@ export enum LogTypes {
   RESOURCE_ERROR = 'resource_error',
   REQUEST_ERROR = 'request_error',
   CROSSORIGIN_SCRIPT_ERROR = 'crossorigin_script_error',
+  UX_PERFORMANCE = 'ux_performance',
+}
+
+export enum LogCategoies {
+  ERROR_LOG = 'error_log',
+  UX_PERFORMANCE_LOG = 'ux_performance_log',
 }
 
 export enum EventTypes {
