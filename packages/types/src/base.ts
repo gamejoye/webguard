@@ -1,4 +1,5 @@
 import { BreadcrumbLevel, BreadcrumbTypes, LogTypes } from '@webguard/common';
+import { GetFunctionParams } from './utils';
 
 export interface IBaseLog {
   timestamp: number; // 日志产生的时间戳
@@ -17,6 +18,10 @@ export interface IErrorLog extends IBaseLog {
   column?: number; // 错误发生的列号
 }
 
+export interface IUXPerformanceLog extends IBaseLog {
+  uxPerformanceData: UXPerformanceData[]; // 用户体验数据
+}
+
 export interface IBreadcrumbData {
   type: BreadcrumbTypes;
   level: BreadcrumbLevel;
@@ -33,7 +38,7 @@ export type BreadcrumbConfig = {
 };
 
 export interface IMonitorReportData {
-  log: IBaseLog | IErrorLog;
+  log: IBaseLog | IErrorLog | IUXPerformanceLog;
   breadcrumbs: IBreadcrumbData[];
 }
 
@@ -84,7 +89,7 @@ export type Flags =
   | 'onXHR'
   | 'onRoute';
 
-export type PerformanceData = {
+export type UXPerformanceData = {
   name: string;
   value: number;
   rating: 'good' | 'normal' | 'bad';
@@ -117,3 +122,10 @@ export type TTFBData = {
 export type PerformanceCallback<
   T extends FPData | FCPData | LCPData | CLSData | INPData | TTFBData,
 > = (data: T) => void;
+
+export interface IEventEmitter<T extends { [k: string]: (...arg: any[]) => void }> {
+  emit<E extends keyof T>(type: E, ...args: GetFunctionParams<T[E]>): void;
+  on<E extends keyof T>(type: E, handler: T[E]): void;
+  once<E extends keyof T>(type: E, handler: T[E]): void;
+  off<E extends keyof T>(type: E, handler?: T[E]): void;
+}

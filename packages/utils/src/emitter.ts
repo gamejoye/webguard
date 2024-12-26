@@ -1,10 +1,8 @@
-type EventMap = {
-  [k: string]: (...arg: any[]) => void;
-};
+import { IEventEmitter, GetFunctionParams } from '@webguard/types';
 
-type GetFunctionParams<T extends (...args: any) => void> = Parameters<T>;
-
-export class EventEmitter<T extends EventMap> {
+export class EventEmitter<T extends { [key: string]: (...args: any[]) => void }>
+  implements IEventEmitter<T>
+{
   protected eventStore = new Map<keyof T, Array<T[keyof T]>>();
   emit<E extends keyof T>(type: E, ...args: GetFunctionParams<T[E]>) {
     const handlers = this.eventStore.get(type) || [];
