@@ -6,8 +6,10 @@ export default defineConfig({
   resolve: {
     alias: {
       '@webguard/performance': path.resolve(__dirname, './src'),
-      '@webguard/common': path.resolve(__dirname, '../common/src'),
-      '@webguard/types': path.resolve(__dirname, '../types/src'),
+      '@webguard/common': path.resolve(__dirname, '../../common/src'),
+      '@webguard/types': path.resolve(__dirname, '../../types/src'),
+      '@webguard/core': path.resolve(__dirname, '../../core/src'),
+      '@webguard/utils': path.resolve(__dirname, '../../utils/src'),
     },
   },
   define: {

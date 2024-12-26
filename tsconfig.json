@@ -16,7 +16,11 @@
     "baseUrl": "./",
     "paths": {
       "*": ["src/*", "node_modules/*"],
-      "@webguard/*": ["packages/*/src"]
+      "@webguard/core": ["packages/core/src"],
+      "@webguard/types": ["packages/types/src"],
+      "@webguard/utils": ["packages/utils/src"],
+      "@webguard/common": ["packages/common/src"],
+      "@webguard/performance": ["packages/plugins/performance/src"]
     }
   },
   "include": ["packages/**/*.ts", "global.d.ts"],

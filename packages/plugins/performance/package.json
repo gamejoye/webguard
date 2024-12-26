@@ -27,6 +27,7 @@
   "author": "gamejoye <gamejoye@gmail.com>",
   "license": "MIT",
   "dependencies": {
+    "@webguard/common": "workspace:^",
     "@webguard/core": "workspace:^",
     "@webguard/types": "workspace:^",
     "@webguard/utils": "workspace:^",
