@@ -1,4 +1,4 @@
-import { LogTypes } from '@webguard/common';
+import { LogTypes, LogCategoies } from '@webguard/common';
 import { IBaseLog } from '@webguard/types';
 import { getUUIDFromLog } from '@webguard/utils';
 
@@ -6,6 +6,7 @@ describe('uuid', () => {
   it('should be able to get uuid from log', () => {
     const log1: IBaseLog = {
       type: LogTypes.JS_ERROR,
+      category: LogCategoies.ERROR_LOG,
       timestamp: 1234567890,
       pageUrl: 'https://example.com',
       userAgent:
@@ -16,6 +17,7 @@ describe('uuid', () => {
     };
     const log2: IBaseLog = {
       type: LogTypes.PROMISE_REJECTION_ERROR,
+      category: LogCategoies.ERROR_LOG,
       timestamp: 12345678910,
       pageUrl: 'https://example.com',
       userAgent:
