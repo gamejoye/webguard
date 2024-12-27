@@ -1,6 +1,12 @@
 # Web Guard
 
-一个轻量级的前端监控系统，帮助你实时监控和诊断 Web 应用的问题。
+![Node CI](https://github.com/gamejoye/webguard/workflows/Node%20CI/badge.svg)
+[![Coverage Status](https://coveralls.io/repos/github/gamejoye/webguard/badge.svg?branch=master)](https://coveralls.io/github/gamejoye/webguard?branch=master)
+[![npm](https://img.shields.io/npm/v/webguard.svg)](https://www.npmjs.com/package/webguard)
+[![NPM Downloads](https://img.shields.io/npm/dm/webguard)](https://npmtrends.com/webguard)
+![license](https://img.shields.io/npm/l/webguard)
+
+**Web Guard** 是一个轻量级的前端监控系统，帮助你实时监控和诊断 Web 应用的问题。
 
 ## 功能特性
 
@@ -14,11 +20,13 @@
 
 ### 📊 性能监控（开发中）
 
-- ⏳ 页面加载性能
-  - First Paint (FP)
-  - First Contentful Paint (FCP)
-  - Largest Contentful Paint (LCP)
-  - First Input Delay (FID)
+- ✅ 页面加载性能
+  - ✅ First Paint (FP)
+  - ✅ First Contentful Paint (FCP)
+  - ✅ Largest Contentful Paint (LCP)
+  - ✅ Interaction to Next Paint (INP)
+  - ✅ Cumulative Layout Shift (CLS)
+  - ✅ Time To First Byte (TTFB)
 - ⏳ API 请求性能
   - 请求耗时统计
   - 请求成功率
@@ -42,14 +50,24 @@
 
 ```
 packages/
-├── core/          # 核心功能实现
-├── common/        # 公共代码和常量
-├── types/         # TypeScript 类型定义
-├── utils/         # 工具函数
-└── webguard/      # 聚合包
+├── core/                  # 核心功能实现
+├── common/                # 公共代码和常量
+├── types/                 # TypeScript 类型定义
+├── utils/                 # 工具函数
+├── plugins/performance    # 性能检测插件包
+└── webguard/              # 聚合包
+
 ```
 
 ## 下载
+
+下载 `@webguard/performance` 包用于检测网页性能
+
+```
+npm install webguard @webguard/performance
+```
+
+如果不想检测页面性能，仅仅只是希望能捕获页面错误以及进行用户行为追踪的话，你可以只下载 `webguard`
 
 ```
 npm install webguard
@@ -59,16 +77,22 @@ npm install webguard
 
 ```
 import WebGuard from 'webguard' // 引入核心包
+import { PerformancePlugin } from '@webguard/performance' // 引入性能检测包
 
 WebGuard.init({
-  targetUrl: 'testurl',
+  targetUrl: 'http://localhost:3001/data',
   breadcrumbConfig: {
     maxBreadcrumbs: 10,
-    beforePushBreadcrumb: breadcrumb => {
+    beforePushBreadcrumb: (breadcrumb) => {
       console.log('beforePushBreadcrumb:', breadcrumb);
       return breadcrumb;
     },
   },
+  plugins: [
+    new PerformancePlugin({
+      onFCP: (data) => console.log('FCP:', data)
+    }),
+  ],
 });
 ```
 
@@ -107,10 +131,10 @@ pnpm test:coverage
 - 测试文件位于各包的 `__tests__` 目录
 - 测试文件命名格式为 `*.test.ts`
 - 测试覆盖率要求：
-  - 分支覆盖率：100%
-  - 函数覆盖率：100%
-  - 行覆盖率：100%
-  - 语句覆盖率：100%
+  - 分支覆盖率：80%
+  - 函数覆盖率：80%
+  - 行覆盖率：80%
+  - 语句覆盖率：80%
 
 ## Git 提交规范
 
@@ -150,4 +174,4 @@ fix(utils): fix type conversion
 
 ## License
 
-ISC © [gamejoye](mailto:gamejoye@gmail.com)
+MIT © [gamejoye](mailto:gamejoye@gmail.com)
