@@ -1,5 +1,7 @@
 # Web Guard
 
+<img src="./assets/logo.png" height="120" alt="Webguard Logo" />
+
 ![Node CI](https://github.com/gamejoye/webguard/workflows/Node%20CI/badge.svg)
 [![Coverage Status](https://coveralls.io/repos/github/gamejoye/webguard/badge.svg?branch=master)](https://coveralls.io/github/gamejoye/webguard?branch=master)
 [![npm](https://img.shields.io/npm/v/webguard.svg)](https://www.npmjs.com/package/webguard)
