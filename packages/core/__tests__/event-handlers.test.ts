@@ -1,6 +1,6 @@
 import { getPageUrl, setFlag } from '@webguard/utils';
 import { handlersEmitter, subscribeEventWithFlags, EventHandlers } from '../src/event-handlers';
-import { reporter } from '../src/repoter';
+import { reporter } from '../src/reporter';
 import { breadcrumb } from '../src/breadcrumb';
 import { BreadcrumbLevel, BreadcrumbTypes, LogTypes } from '@webguard/common';
 import { ExtraXMLHttpRequest, IBreadcrumbData } from '@webguard/types';

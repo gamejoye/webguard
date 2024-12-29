@@ -1,5 +1,5 @@
 import { ErrorLog, ReporterData } from '../src/models';
-import { MonitorReporter } from '../src/repoter';
+import { MonitorReporter } from '../src/reporter';
 
 describe('reporter', () => {
   it('reporter should skip duplicate logs', () => {

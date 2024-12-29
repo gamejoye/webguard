@@ -1,6 +1,6 @@
 import { initFlags } from '@webguard/utils';
 import { initRelace } from './replace';
-import { reporter } from './repoter';
+import { reporter } from './reporter';
 import { breadcrumb } from './breadcrumb';
 import { InitConfig } from '@webguard/types';
 

@@ -7,7 +7,7 @@ import {
   getFlag,
 } from '@webguard/utils';
 import { ErrorLog, Breadcrumb } from './models';
-import { reporter } from './repoter';
+import { reporter } from './reporter';
 import { breadcrumb } from './breadcrumb';
 import { BreadcrumbLevel, BreadcrumbTypes, LogTypes } from '@webguard/common';
 import { EventMaps, ExtraXMLHttpRequest, Flags, RouteData } from '@webguard/types';
