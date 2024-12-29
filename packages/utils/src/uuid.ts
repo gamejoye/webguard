@@ -1,10 +1,16 @@
-import { IBaseLog } from '@webguard/types';
-
-function serializeLog(log: IBaseLog): string {
-  const expectedKeys = Object.keys(log).sort();
-  return JSON.stringify(log, expectedKeys);
+function serialize(obj: Record<string, any>): string {
+  const expectedKeys = Object.keys(obj).sort();
+  return JSON.stringify(obj, expectedKeys);
 }
 
-export function getUUIDFromLog(log: IBaseLog): string {
-  return serializeLog(log);
+export function getUUID<T extends Record<string, any>, K extends keyof T>(
+  obj: T,
+  excludeKeys: K[] = []
+): string {
+  for (const key of Object.keys(obj)) {
+    if (excludeKeys.includes(key as K)) {
+      delete obj[key];
+    }
+  }
+  return serialize(obj);
 }
