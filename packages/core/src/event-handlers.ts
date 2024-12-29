@@ -152,10 +152,16 @@ export const EventHandlers = {
   },
   handleFetch(args: Parameters<typeof fetch>, res: Response | null, error: any) {
     let log: ErrorLog;
+    const url =
+      typeof args[0] === 'string'
+        ? args[0]
+        : Object.prototype.toString.call(args[0]) === '[object Request]'
+          ? (args[0] as Request).url
+          : (args[0] as URL).toString();
+    const init = args[1];
     if (res) {
-      const init = args[1];
       const message = [
-        `Failed to fetch ${res.url}`,
+        `Failed to fetch ${url}`,
         `[status]: ${res.status}`,
         `[statusText]: ${res.statusText}`,
         `[method]: ${init?.method ?? 'GET'}`,
@@ -172,7 +178,7 @@ export const EventHandlers = {
       let filename = '';
       let line = -1;
       let column = -1;
-      let message = 'Failed to fetch';
+      let message = `Failed to fetch ${url}`;
       if (error instanceof Error) {
         const info = getErrorStackInfo(error);
         filename = info.filename;
