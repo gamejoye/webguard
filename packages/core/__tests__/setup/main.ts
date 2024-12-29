@@ -1,10 +1,10 @@
 import { Guard as guard } from '@webguard/core';
-import { setupErrorTests } from './cases/error';
-import { setupPromiseTests } from './cases/promise';
-import { setupBreadcrumbTests } from './cases/breadcrumb';
-import { setupSourceTests } from './cases/source';
-import { setupAsyncTests } from './cases/async';
-import { setupScriptErrorTests } from './cases/script-error';
+import { setupErrorTests } from './error-test';
+import { setupPromiseTests } from './promise-test';
+import { setupBreadcrumbTests } from './breadcrumb-test';
+import { setupSourceTests } from './source-test';
+import { setupAsyncTests } from './async-test';
+import { setupScriptErrorTests } from './script-error-test';
 // 初始化各个测试用例
 setupErrorTests(guard);
 setupPromiseTests(guard);

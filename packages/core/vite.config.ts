@@ -2,7 +2,7 @@ import { defineConfig } from 'vite';
 import path, { resolve } from 'path';
 
 export default defineConfig({
-  root: '__tests__',
+  root: '__tests__/setup',
   resolve: {
     alias: {
       '@webguard/core': path.resolve(__dirname, './src'),

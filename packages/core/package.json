@@ -16,7 +16,7 @@
   "scripts": {
     "dev": "vite",
     "build": "rm -rf dist && tsc -p tsconfig.build.json && vite build",
-    "server": "node __tests__/server.js"
+    "server": "node __tests__/setup/server.js"
   },
   "keywords": [],
   "author": "gamejoye <gamejoye@gmail.com>",
