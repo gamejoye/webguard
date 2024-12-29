@@ -8,7 +8,8 @@
       "message": "chore(version): publish %s"
     },
     "version": {
-      "allowBranch": "master"
+      "allowBranch": "master",
+      "forcePublish": true
     }
   }
 }
