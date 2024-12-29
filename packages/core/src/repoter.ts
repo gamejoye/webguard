@@ -1,5 +1,5 @@
 import { IMonitorReporter, InitConfig, MonitorReporterBeforePost } from '@webguard/types';
-import { getUUIDFromLog } from '@webguard/utils';
+import { getUUID } from '@webguard/utils';
 import { breadcrumb } from './breadcrumb';
 import { BaseLog, ReporterData } from './models';
 import { WINDOW } from '@webguard/common';
@@ -33,7 +33,7 @@ export class MonitorReporter implements IMonitorReporter {
     if (!this.repetitionErrorRemove) {
       return this.immediateSend(log);
     }
-    const uuid = getUUIDFromLog(log);
+    const uuid = getUUID(log, ['timestamp']);
     if (this.existLogUUIDs.has(uuid)) return;
     this.existLogUUIDs.add(uuid);
     return this.immediateSend(log);
