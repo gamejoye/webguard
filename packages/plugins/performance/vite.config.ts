@@ -2,7 +2,7 @@ import { defineConfig } from 'vite';
 import path, { resolve } from 'path';
 
 export default defineConfig({
-  root: '__tests__',
+  root: '__tests__/setup',
   resolve: {
     alias: {
       '@webguard/performance': path.resolve(__dirname, './src'),
@@ -16,6 +16,7 @@ export default defineConfig({
     __DEV__: true,
     __MODE__: JSON.stringify('web'),
   },
+  publicDir: path.resolve(__dirname, '../../../assets'),
   server: {
     port: 3002,
     open: true,
