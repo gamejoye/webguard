@@ -15,6 +15,7 @@ export default defineConfig({
     __DEV__: true,
     __MODE__: JSON.stringify('web'),
   },
+  publicDir: path.resolve(__dirname, '../../assets'),
   server: {
     port: 3000,
     open: true,
