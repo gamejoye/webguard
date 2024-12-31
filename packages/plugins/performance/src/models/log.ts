@@ -13,7 +13,7 @@ export class UXPerformanceLog implements IUXPerformanceLog {
 
   constructor(options: Partial<IUXPerformanceLog> = {}) {
     this.timestamp = options.timestamp ?? Date.now();
-    this.category = LogCategoies.UX_PERFORMANCE_LOG;
+    this.category = LogCategoies.PERFORMANCE_LOG;
     this.type = LogTypes.UX_PERFORMANCE;
     this.pageUrl = options.pageUrl ?? '';
     this.userAgent = options.userAgent ?? '';

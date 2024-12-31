@@ -43,7 +43,7 @@ export class UXPerformanceLog extends BaseLog implements IUXPerformanceLog {
   uxPerformanceData: UXPerformanceData[];
   constructor(options: Partial<IUXPerformanceLog> = {}) {
     super(options);
-    this.category = LogCategoies.UX_PERFORMANCE_LOG;
+    this.category = LogCategoies.PERFORMANCE_LOG;
     this.uxPerformanceData = options.uxPerformanceData ?? [];
   }
 }

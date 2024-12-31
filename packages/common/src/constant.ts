@@ -5,11 +5,12 @@ export enum LogTypes {
   REQUEST_ERROR = 'request_error',
   CROSSORIGIN_SCRIPT_ERROR = 'crossorigin_script_error',
   UX_PERFORMANCE = 'ux_performance',
+  API_PERFORMANCE = 'api_performance',
 }
 
 export enum LogCategoies {
   ERROR_LOG = 'error_log',
-  UX_PERFORMANCE_LOG = 'ux_performance_log',
+  PERFORMANCE_LOG = 'performance_log',
 }
 
 export enum EventTypes {
