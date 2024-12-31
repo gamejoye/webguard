@@ -28,6 +28,24 @@ export interface IUXPerformanceLog extends IBaseLog {
   uxPerformanceData: UXPerformanceData[]; // 用户体验数据
 }
 
+export interface IApiPerformanceLog extends IBaseLog {
+  totalRequests: number;
+  successRequests: number;
+  failedRequests: number;
+  averaageTime: number;
+  minTime: number;
+  maxTime: number;
+  apiPerformanceData: ApiPerformanceData[];
+}
+
+export type ApiPerformanceData = {
+  url: string;
+  method: string;
+  body?: string;
+  status: 'success' | 'failed';
+  time: number;
+};
+
 export interface IBreadcrumb {
   push(breadcrumb: IBreadcrumbData): IBreadcrumbData | null;
   clear(): void;
@@ -166,3 +184,6 @@ export type PerformancePluginConfig = {
   onCLS?: PerformanceCallback<CLSData>;
   onTTFB?: PerformanceCallback<TTFBData>;
 };
+
+// eslint-disable-next-line @typescript-eslint/no-empty-object-type
+export type ApiPerformancePluginConfig = {};
