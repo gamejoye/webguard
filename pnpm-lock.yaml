@@ -116,6 +116,12 @@ importers:
         specifier: ^4.21.2
         version: 4.21.2
 
+  packages/plugins/api-performance:
+    dependencies:
+      '@webguard/types':
+        specifier: workspace:^
+        version: link:../../types
+
   packages/plugins/performance:
     dependencies:
       '@webguard/common':
