@@ -8,3 +8,11 @@ export function isSameOrigin(url: string, origin: string): boolean {
     return false;
   }
 }
+
+export function getUrlFromFetchArgs(args: Parameters<typeof fetch>) {
+  return typeof args[0] === 'string'
+    ? args[0]
+    : Object.prototype.toString.call(args[0]) === '[object Request]'
+      ? (args[0] as Request).url
+      : (args[0] as URL).toString();
+}
