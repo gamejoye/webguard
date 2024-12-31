@@ -5,6 +5,7 @@ import {
   isSameOrigin,
   EventEmitter,
   getFlag,
+  getUrlFromFetchArgs,
 } from '@webguard/utils';
 import { ErrorLog, Breadcrumb } from './models';
 import { reporter } from './reporter';
@@ -151,13 +152,9 @@ export const EventHandlers = {
     breadcrumb.push(breadcrumbData);
   },
   handleFetch(args: Parameters<typeof fetch>, res: Response | null, error: any) {
+    if (res && res.ok) return;
     let log: ErrorLog;
-    const url =
-      typeof args[0] === 'string'
-        ? args[0]
-        : Object.prototype.toString.call(args[0]) === '[object Request]'
-          ? (args[0] as Request).url
-          : (args[0] as URL).toString();
+    const url = getUrlFromFetchArgs(args);
     const init = args[1];
     if (res) {
       const message = [
