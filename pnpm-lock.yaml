@@ -118,9 +118,15 @@ importers:
 
   packages/plugins/api-performance:
     dependencies:
+      '@webguard/common':
+        specifier: workspace:^
+        version: link:../../common
       '@webguard/types':
         specifier: workspace:^
         version: link:../../types
+      '@webguard/utils':
+        specifier: workspace:^
+        version: link:../../utils
 
   packages/plugins/performance:
     dependencies:

@@ -2,6 +2,7 @@
   "name": "@webguard/api-performance",
   "version": "1.1.0",
   "description": "监控系统性能监控包",
+  "type": "module",
   "main": "dist/index.cjs",
   "module": "dist/index.mjs",
   "types": "dist/index.d.ts",
@@ -21,12 +22,14 @@
   },
   "scripts": {
     "dev": "vite",
-    "build": "rm -rf dist && tsc -p tsconfig.build.json && vite build"
+    "build": "rm -rf dist && tsc -p tsconfig.build.json && node build-api-performance.js"
   },
   "keywords": [],
   "author": "gamejoye <gamejoye@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "@webguard/types": "workspace:^"
+    "@webguard/types": "workspace:^",
+    "@webguard/common": "workspace:^",
+    "@webguard/utils": "workspace:^"
   }
 }
