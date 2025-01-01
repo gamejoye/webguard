@@ -1,6 +1,9 @@
-/* eslint-disable @typescript-eslint/no-require-imports */
-const { build } = require('vite');
-const path = require('path');
+import { build } from 'vite';
+import path, { dirname } from 'path';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 const getFileName = (format, ext) => {
   return {
