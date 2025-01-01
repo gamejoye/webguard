@@ -182,6 +182,7 @@ describe('event-handlers', () => {
       const spySend = jest.spyOn(reporter, 'send').mockImplementation(async () => {});
       const error = new Error();
       const URL = 'https://www.google.com/';
+      // mock error
       EventHandlers.handleFetch([URL], null, error);
       expect(spySend).toHaveBeenCalledTimes(1);
       expect(spySend).toHaveBeenNthCalledWith(
@@ -194,7 +195,8 @@ describe('event-handlers', () => {
       const firstCall = calls[0][0] as ErrorLog;
       expect(firstCall.column).not.toBe(-1);
 
-      EventHandlers.handleFetch([URL], {} as any, null);
+      // mock res not ok
+      EventHandlers.handleFetch([URL], { ok: false } as any, null);
       expect(spySend).toHaveBeenNthCalledWith(
         2,
         expect.objectContaining({
@@ -203,6 +205,11 @@ describe('event-handlers', () => {
       );
       const secondCall = calls[1][0] as ErrorLog;
       expect(secondCall.errorMessage).toMatch(URL);
+
+      expect(spySend).toHaveBeenCalledTimes(2);
+      // mock res ok
+      EventHandlers.handleFetch([URL], { ok: true } as any, null);
+      expect(spySend).toHaveBeenCalledTimes(2);
     });
     it('handleKeyDown should work', () => {
       const spyPush = jest.spyOn(breadcrumb, 'push').mockImplementation(val => val);
