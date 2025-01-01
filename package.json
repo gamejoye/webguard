@@ -11,7 +11,8 @@
     "test": "jest --runInBand",
     "test:watch": "jest --runInBand --watch",
     "test:coverage": "jest --runInBand --coverage",
-    "publish": "pnpm lerna run build && pnpm lerna publish"
+    "publish": "pnpm recursive run build && pnpm lerna publish",
+    "publish:alpha": "pnpm recursive run build && pnpm lerna publish --dist-tag alpha"
   },
   "repository": {
     "type": "git",
