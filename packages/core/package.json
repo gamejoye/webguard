@@ -2,6 +2,7 @@
   "name": "@webguard/core",
   "version": "1.1.0",
   "description": "监控系统核心包",
+  "type": "module",
   "main": "dist/index.cjs",
   "module": "dist/index.mjs",
   "types": "dist/index.d.ts",
@@ -15,7 +16,7 @@
   },
   "scripts": {
     "dev": "vite",
-    "build": "rm -rf dist && tsc -p tsconfig.build.json && vite build",
+    "build": "rm -rf dist && tsc -p tsconfig.build.json && node build-core.js",
     "server": "node __tests__/setup/server.js"
   },
   "keywords": [],

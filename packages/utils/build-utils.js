@@ -21,6 +21,10 @@ const entrys = [
 
 entrys.forEach(({ entry, fileName }) => {
   build({
+    define: {
+      __DEV__: false,
+      __MODE__: JSON.stringify('web'),
+    },
     build: {
       outDir: path.join(__dirname, 'dist'),
       target: 'esnext',

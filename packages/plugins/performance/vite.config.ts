@@ -1,5 +1,5 @@
 import { defineConfig } from 'vite';
-import path, { resolve } from 'path';
+import path from 'path';
 
 export default defineConfig({
   root: '__tests__/setup',
@@ -20,21 +20,5 @@ export default defineConfig({
   server: {
     port: 3002,
     open: true,
-  },
-  build: {
-    emptyOutDir: false,
-    target: 'esnext',
-    outDir: path.resolve(__dirname, './dist'),
-    lib: {
-      entry: resolve(__dirname, 'src/index.ts'),
-      name: '@webguard/performance',
-      formats: ['es', 'cjs'],
-      fileName: format => `index.${format === 'es' ? 'mjs' : 'cjs'}`,
-    },
-    rollupOptions: {
-      external: ['@webguard/common', '@webguard/types', '@webguard/utils'],
-    },
-    sourcemap: true,
-    minify: true,
   },
 });
