@@ -1,5 +1,5 @@
 import { Guard } from '@webguard/core';
-import { ApiPerformancePlugin } from '../../src';
+import { ApiPerformancePlugin } from '@webguard/api-performance';
 function initApiPerformanceMetrics() {
   Guard.init({
     targetUrl: 'http://localhost:3001/data',
